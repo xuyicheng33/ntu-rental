@@ -84,6 +84,7 @@ export async function POST() {
       env: {
         ...process.env,
         SCRAPER_PROXY: process.env.SCRAPER_PROXY || 'http://127.0.0.1:7897',
+        SCRAPER_HEADLESS: process.env.SCRAPER_HEADLESS || 'false',
       },
     },
   );

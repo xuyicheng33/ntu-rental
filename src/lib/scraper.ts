@@ -18,16 +18,33 @@ const PROPERTYGURU_SEARCH_URLS = [
   'https://www.propertyguru.com.sg/property-for-rent?market=residential&district_code%5B%5D=WD22&district_code%5B%5D=WD24&district_code%5B%5D=WD23&property_type%5B%5D=1&property_type%5B%5D=2&property_type%5B%5D=3&bedrooms%5B%5D=2&maxprice=3500&freehold=0&leasehold=0&sort=date_desc&page=3',
 ];
 
-const HOZUKO_SEARCH_URLS = [
-  'https://www.hozuko.com/for-rent/hdb/in-singapore',
-  'https://www.hozuko.com/for-rent/2-bedroom/in-singapore',
+const HOZUKO_BASE_SEARCH_URLS = [
   'https://www.hozuko.com/for-rent/properties/in-singapore',
+  'https://www.hozuko.com/for-rent/hdb/in-singapore',
   'https://www.hozuko.com/for-rent/condos/in-singapore',
+  'https://www.hozuko.com/for-rent/rooms/in-singapore',
+  'https://www.hozuko.com/for-rent/2-bedroom/in-singapore',
+];
+const HOZUKO_NTU_LOCATION_SLUGS = [
+  'boon-lay',
+  'bukit-batok',
+  'bukit-panjang',
+  'choa-chu-kang',
+  'clementi',
+  'jurong-east',
+  'jurong-west',
+  'pioneer',
+  'tengah',
+];
+const HOZUKO_SEARCH_URLS = [
+  ...HOZUKO_BASE_SEARCH_URLS,
+  ...HOZUKO_NTU_LOCATION_SLUGS.map(slug => `https://www.hozuko.com/for-rent/properties/in-${slug}`),
 ];
 
 const DELAY_MS = 1000;
 const PAGE_TIMEOUT_MS = 15000;
 const FETCH_TIMEOUT_MS = 20000;
+const PROPERTYGURU_MANUAL_WAIT_MS = Number(process.env.PROPERTYGURU_MANUAL_WAIT_MS || 180000);
 const LOCAL_CLASH_PROXY = 'http://127.0.0.1:7897';
 const NTU_RELATED_AREAS = new Set([
   'Jurong West',
@@ -85,6 +102,14 @@ function getBrowserExecutablePath(): string | undefined {
 
 function getPropertyGuruStorageState(): string | undefined {
   return fs.existsSync(PROPERTYGURU_STORAGE_STATE) ? PROPERTYGURU_STORAGE_STATE : undefined;
+}
+
+function shouldUseHeadlessForPropertyGuru(hasPersistentProfile: boolean): boolean {
+  if (process.env.SCRAPER_HEADLESS) {
+    return process.env.SCRAPER_HEADLESS !== 'false';
+  }
+
+  return !hasPersistentProfile;
 }
 
 function canConnect(host: string, port: number, timeoutMs = 250): Promise<boolean> {
@@ -619,20 +644,22 @@ async function scrapeHozukoListings(onProgress?: ProgressCallback, signal?: Abor
   return selectedListings;
 }
 
-async function createPropertyGuruContext(proxyServer: string | undefined): Promise<{ context: BrowserContext; browser: Browser | null; usesPersistentProfile: boolean }> {
+async function createPropertyGuruContext(proxyServer: string | undefined): Promise<{ context: BrowserContext; browser: Browser | null; usesPersistentProfile: boolean; isHeadless: boolean }> {
+  const hasPersistentProfile = fs.existsSync(PROPERTYGURU_PROFILE_DIR);
+  const isHeadless = shouldUseHeadlessForPropertyGuru(hasPersistentProfile);
   const contextOptions = {
     userAgent: CHROME_USER_AGENT,
     viewport: { width: 1920, height: 1080 },
     locale: 'en-SG',
   };
   const launchOptions = {
-    headless: process.env.SCRAPER_HEADLESS === 'false' ? false : true,
+    headless: isHeadless,
     executablePath: getBrowserExecutablePath(),
     proxy: proxyServer ? { server: proxyServer } : undefined,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   };
 
-  if (fs.existsSync(PROPERTYGURU_PROFILE_DIR)) {
+  if (hasPersistentProfile) {
     const context = await chromium.launchPersistentContext(PROPERTYGURU_PROFILE_DIR, {
       ...launchOptions,
       ...contextOptions,
@@ -647,7 +674,7 @@ async function createPropertyGuruContext(proxyServer: string | undefined): Promi
         '--no-first-run',
       ],
     });
-    return { context, browser: null, usesPersistentProfile: true };
+    return { context, browser: null, usesPersistentProfile: true, isHeadless };
   }
 
   const browser = await chromium.launch(launchOptions);
@@ -655,11 +682,38 @@ async function createPropertyGuruContext(proxyServer: string | undefined): Promi
     ...contextOptions,
     storageState: getPropertyGuruStorageState(),
   });
-  return { context, browser, usesPersistentProfile: false };
+  return { context, browser, usesPersistentProfile: false, isHeadless };
 }
 
 function isPropertyGuruSessionError(message: string): boolean {
   return /PropertyGuru|Cloudflare|propertyguru:session/i.test(message);
+}
+
+function isPropertyGuruBlocked(status: number, headers: Record<string, string>, html: string): boolean {
+  return status === 403 ||
+    Boolean(headers['cf-mitigated']) ||
+    html.includes('cf-mitigated') ||
+    html.includes('Just a moment') ||
+    html.includes('Performing security verification') ||
+    html.includes('安全验证');
+}
+
+async function waitForManualPropertyGuruVerification(page: Page, signal?: AbortSignal): Promise<string | null> {
+  const deadline = Date.now() + PROPERTYGURU_MANUAL_WAIT_MS;
+
+  await page.bringToFront().catch(() => {});
+  while (Date.now() < deadline) {
+    throwIfAborted(signal);
+    await delay(3000);
+
+    const html = await page.content().catch(() => '');
+    const title = await page.title().catch(() => '');
+    if (html && !isPropertyGuruBlocked(0, {}, `${title}\n${html}`)) {
+      return html;
+    }
+  }
+
+  return null;
 }
 
 async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?: AbortSignal): Promise<Listing[]> {
@@ -670,12 +724,14 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
   const allListings: Listing[] = [];
   const seenIds = new Set<string>();
   let usesPersistentProfile = false;
+  let isHeadless = true;
 
   try {
     const created = await createPropertyGuruContext(proxyServer);
     browser = created.browser;
     context = created.context;
     usesPersistentProfile = created.usesPersistentProfile;
+    isHeadless = created.isHeadless;
 
     const page = await context.newPage();
 
@@ -687,7 +743,7 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
         currentPage: i + 1,
         totalPages: PROPERTYGURU_SEARCH_URLS.length,
         listingsFound: allListings.length,
-        message: `Opening PropertyGuru page ${i + 1}${proxyServer ? ` via ${proxyServer}` : ''}${usesPersistentProfile ? ' with saved browser profile' : storageState ? ' with saved session' : ''}...`,
+        message: `Opening PropertyGuru page ${i + 1}${proxyServer ? ` via ${proxyServer}` : ''}${usesPersistentProfile ? ` with saved browser profile${isHeadless ? '' : ' in visible Chrome'}` : storageState ? ' with saved session' : ''}...`,
       });
 
       const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: PAGE_TIMEOUT_MS });
@@ -696,10 +752,27 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
 
       const status = response?.status() || 0;
       const headers = response?.headers() || {};
-      const html = await page.content();
+      let html = await page.content();
 
-      if (status === 403 || headers['cf-mitigated'] || html.includes('cf-mitigated') || html.includes('Just a moment') || html.includes('安全验证')) {
-        throw new Error(`PropertyGuru blocked by Cloudflare challenge${proxyServer ? ` even via ${proxyServer}` : ''}. Run "SCRAPER_PROXY=${proxyServer || LOCAL_CLASH_PROXY} npm run propertyguru:session" and finish the browser verification, then retry PropertyGuru.`);
+      if (isPropertyGuruBlocked(status, headers, html)) {
+        if (!isHeadless && usesPersistentProfile) {
+          onProgress?.({
+            phase: 'opening',
+            currentPage: i + 1,
+            totalPages: PROPERTYGURU_SEARCH_URLS.length,
+            listingsFound: allListings.length,
+            message: `PropertyGuru is asking for Cloudflare verification. Finish it in the visible Chrome window; scraper will continue automatically...`,
+          });
+
+          const verifiedHtml = await waitForManualPropertyGuruVerification(page, signal);
+          if (verifiedHtml) {
+            html = verifiedHtml;
+          } else {
+            throw new Error(`PropertyGuru manual verification timed out after ${Math.round(PROPERTYGURU_MANUAL_WAIT_MS / 1000)} seconds.`);
+          }
+        } else {
+          throw new Error(`PropertyGuru blocked by Cloudflare challenge${proxyServer ? ` even via ${proxyServer}` : ''}. Run "SCRAPER_PROXY=${proxyServer || LOCAL_CLASH_PROXY} npm run propertyguru:session" and finish the browser verification, then retry PropertyGuru.`);
+        }
       }
 
       onProgress?.({

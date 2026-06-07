@@ -21,6 +21,8 @@ The app supports three scrape modes from the UI:
 
 Scraped listings are saved to `data/listing.json`. If a source returns zero listings or is blocked, the scraper does not overwrite existing data.
 
+Hozuko does not expose a normal `page=2` style pagination flow in the rendered HTML. The scraper therefore gathers a broader result set by scanning multiple real search entry points: broad Singapore category pages plus NTU-adjacent area pages such as Jurong West, Jurong East, Boon Lay, Pioneer, Tengah, Clementi, Bukit Batok, Bukit Panjang, and Choa Chu Kang. It then deduplicates by listing URL, filters to NTU-adjacent areas, and fetches each detail page to use that listing's own `og:image` as the card image.
+
 ## PropertyGuru Session
 
 PropertyGuru is protected by Cloudflare. A normal HTTP request, and even a Playwright browser through Clash, can still receive `403` with `cf-mitigated: challenge`.
@@ -49,6 +51,8 @@ The PropertyGuru scraper uses `data/propertyguru-profile/` when it exists, other
 The session tool only reports success after the same browser mode used by the scraper can reload PropertyGuru without Cloudflare. Seeing the real page in the manual Chrome window is not enough by itself; if the follow-up scraper check still receives Cloudflare, the session is treated as failed.
 
 If PropertyGuru is still on the Cloudflare challenge page, the browser stays open and the script asks you to try again. Type `q` only if you want to quit without saving a session.
+
+For local development, the PropertyGuru scraper opens the saved profile in visible Chrome by default. If Cloudflare appears during a scrape, finish the verification in that Chrome window; the scraper waits and continues automatically. In server or Docker environments, set `SCRAPER_HEADLESS=true` to force headless mode.
 
 Check the saved session with:
 

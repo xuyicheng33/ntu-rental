@@ -62,7 +62,7 @@ async function main() {
 
   if (hasProfile) {
     const context = await chromium.launchPersistentContext(PROFILE_DIR, {
-      headless: process.env.SCRAPER_HEADLESS === 'false' ? false : true,
+      headless: process.env.SCRAPER_HEADLESS === 'true',
       executablePath,
       proxy: proxy ? { server: proxy } : undefined,
       locale: 'en-SG',

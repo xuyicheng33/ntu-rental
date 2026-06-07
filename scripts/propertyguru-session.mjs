@@ -104,7 +104,7 @@ async function inspectPage(page, options = {}) {
 }
 
 async function verifySavedSession(proxy, executablePath, targetUrl) {
-  const headless = process.env.SCRAPER_HEADLESS === 'false' ? false : true;
+  const headless = process.env.SCRAPER_HEADLESS === 'true';
   const context = await chromium.launchPersistentContext(
     PROFILE_DIR,
     createContextOptions(proxy, executablePath, headless),
