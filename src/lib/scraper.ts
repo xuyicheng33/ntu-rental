@@ -3,6 +3,7 @@ import { Listing } from './types';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as net from 'net';
+import { execFile } from 'child_process';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const LISTINGS_FILE = path.join(DATA_DIR, 'listing.json');
@@ -11,11 +12,16 @@ const PROPERTYGURU_PROFILE_DIR = path.join(DATA_DIR, 'propertyguru-profile');
 const CHROME_USER_AGENT = process.env.SCRAPER_USER_AGENT ||
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36';
 
-const PROPERTYGURU_SEARCH_URLS = [
-  'https://www.propertyguru.com.sg/listing/hdb-for-rent-653c-jurong-west-street-61-500141804',
-  'https://www.propertyguru.com.sg/property-for-rent?market=residential&district_code%5B%5D=WD22&district_code%5B%5D=WD24&district_code%5B%5D=WD23&property_type%5B%5D=1&property_type%5B%5D=2&property_type%5B%5D=3&bedrooms%5B%5D=2&maxprice=3500&freehold=0&leasehold=0&sort=date_desc',
-  'https://www.propertyguru.com.sg/property-for-rent?market=residential&district_code%5B%5D=WD22&district_code%5B%5D=WD24&district_code%5B%5D=WD23&property_type%5B%5D=1&property_type%5B%5D=2&property_type%5B%5D=3&bedrooms%5B%5D=2&maxprice=3500&freehold=0&leasehold=0&sort=date_desc&page=2',
-  'https://www.propertyguru.com.sg/property-for-rent?market=residential&district_code%5B%5D=WD22&district_code%5B%5D=WD24&district_code%5B%5D=WD23&property_type%5B%5D=1&property_type%5B%5D=2&property_type%5B%5D=3&bedrooms%5B%5D=2&maxprice=3500&freehold=0&leasehold=0&sort=date_desc&page=3',
+const PROPERTYGURU_SEARCH_AREAS = [
+  'Jurong West',
+  'Boon Lay',
+  'Pioneer',
+  'Tengah',
+  'Jurong East',
+  'Clementi',
+  'Bukit Batok',
+  'Choa Chu Kang',
+  'Bukit Panjang',
 ];
 
 const HOZUKO_BASE_SEARCH_URLS = [
@@ -45,6 +51,7 @@ const DELAY_MS = 1000;
 const PAGE_TIMEOUT_MS = 15000;
 const FETCH_TIMEOUT_MS = 20000;
 const PROPERTYGURU_MANUAL_WAIT_MS = Number(process.env.PROPERTYGURU_MANUAL_WAIT_MS || 180000);
+const PROPERTYGURU_MAX_PAGES_PER_SEARCH = Math.max(1, Number(process.env.PROPERTYGURU_MAX_PAGES_PER_SEARCH || 5));
 const LOCAL_CLASH_PROXY = 'http://127.0.0.1:7897';
 const NTU_RELATED_AREAS = new Set([
   'Jurong West',
@@ -76,6 +83,20 @@ export interface ScrapeProgress {
 export type ScraperSource = 'auto' | 'propertyguru' | 'hozuko';
 export type ProgressCallback = (progress: ScrapeProgress) => void;
 
+interface PropertyGuruSearchPlanItem {
+  url: string;
+  area: string;
+  page: number;
+}
+
+interface SafariPropertyGuruResult {
+  blocked: boolean;
+  title: string;
+  url: string;
+  bodySample: string;
+  listings: Listing[];
+}
+
 function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -84,6 +105,29 @@ function throwIfAborted(signal?: AbortSignal) {
   if (signal?.aborted) {
     throw new Error('Scrape cancelled.');
   }
+}
+
+function buildPropertyGuruSearchPlan(): PropertyGuruSearchPlanItem[] {
+  return PROPERTYGURU_SEARCH_AREAS.flatMap(area => {
+    return Array.from({ length: PROPERTYGURU_MAX_PAGES_PER_SEARCH }, (_, index) => {
+      const page = index + 1;
+      const params = new URLSearchParams({
+        freetext: area,
+        listingType: 'rent',
+        isCommercial: 'false',
+        sort: 'date_desc',
+        maxPrice: '3500',
+      });
+
+      if (page > 1) params.set('page', String(page));
+
+      return {
+        area,
+        page,
+        url: `https://www.propertyguru.com.sg/property-for-rent?${params.toString()}`,
+      };
+    });
+  });
 }
 
 function ensureDataDir() {
@@ -110,6 +154,169 @@ function shouldUseHeadlessForPropertyGuru(): boolean {
   }
 
   return true;
+}
+
+function shouldUseSafariForPropertyGuru(): boolean {
+  if (process.env.PROPERTYGURU_BROWSER) {
+    return process.env.PROPERTYGURU_BROWSER.toLowerCase() === 'safari';
+  }
+
+  return process.platform === 'darwin' && process.env.PROPERTYGURU_VERIFICATION_BROWSER !== 'chrome';
+}
+
+function escapeAppleScriptString(value: string): string {
+  return value
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\r?\n/g, '\\n');
+}
+
+function runAppleScript(script: string, timeout = 60000): Promise<string> {
+  return new Promise((resolve, reject) => {
+    execFile('osascript', ['-e', script], { timeout, maxBuffer: 1024 * 1024 * 10 }, (error, stdout, stderr) => {
+      if (error) {
+        reject(new Error(stderr.trim() || error.message));
+        return;
+      }
+
+      resolve(stdout.trim());
+    });
+  });
+}
+
+async function readPropertyGuruWithSafari(url: string): Promise<SafariPropertyGuruResult> {
+  const extractor = `
+(() => {
+  const bodyText = document.body?.innerText || '';
+  const blocked = /Cloudflare|Just a moment|正在进行安全验证|Enable JavaScript and cookies|Checking if the site connection is secure/i.test(document.title + '\\n' + bodyText);
+  const normalize = value => (value || '').replace(/\\s+/g, ' ').trim();
+  const linesFor = element => (element.innerText || element.textContent || '').split(/\\n/).map(normalize).filter(Boolean);
+  const badTitle = /^(Contact|Save|Share|Listed on|Ready to Move|Everyone Welcome|Map View|Filters?)$/i;
+  const cards = Array.from(document.querySelectorAll('[da-listing-id], .listing-card-v2'));
+  const seen = new Set();
+  const listings = [];
+
+  for (const card of cards) {
+    const link = Array.from(card.querySelectorAll('a[href*="/listing/"]')).find(anchor => anchor.href);
+    const href = link ? new URL(link.getAttribute('href'), location.href).href : '';
+    const id = card.getAttribute('da-listing-id') || href.match(/(\\d{6,})/)?.[1] || href.match(/listing\\/([^/?#]+)/)?.[1] || '';
+    if (!id || !href || seen.has(id)) continue;
+    seen.add(id);
+
+    const text = normalize(card.innerText || card.textContent || '');
+    const lines = linesFor(card);
+    const priceMatch = text.match(/S\\$\\s*([\\d,]+)\\s*\\/mo/i);
+    const price = priceMatch ? Number(priceMatch[1].replace(/,/g, '')) : 0;
+    if (!price) continue;
+
+    const priceIndex = lines.findIndex(line => /S\\$\\s*[\\d,]+\\s*\\/mo/i.test(line));
+    const isGoodTitle = value => value && !badTitle.test(value) && !/^\\d+$/.test(value) && !/^S\\$/i.test(value) && !/psf$/i.test(value);
+    const afterPrice = lines.slice(Math.max(0, priceIndex + 1)).filter(line => !/^S\\$/i.test(line) && !/psf$/i.test(line));
+    let title = priceIndex > 0 && isGoodTitle(lines[priceIndex - 1]) ? lines[priceIndex - 1] : '';
+    if (!title) title = afterPrice.find(isGoodTitle) || card.getAttribute('title') || link?.getAttribute('aria-label') || '';
+
+    const propertyName = afterPrice.find(isGoodTitle) || '';
+    const propertyNameIndex = propertyName ? lines.indexOf(propertyName) : -1;
+    const addressLine = propertyNameIndex >= 0 ? lines.slice(propertyNameIndex + 1).find(isGoodTitle) || '' : '';
+    const address = normalize([propertyName, addressLine].filter(Boolean).join(', ')) || title;
+
+    const imageCandidates = Array.from(card.querySelectorAll('img')).flatMap(img => {
+      const values = [
+        img.currentSrc,
+        img.getAttribute('src'),
+        img.getAttribute('data-src'),
+        img.getAttribute('data-lazy-src'),
+        img.getAttribute('srcset')?.split(',')[0]?.trim().split(/\\s+/)[0],
+      ];
+      return values.filter(Boolean).map(value => new URL(value, location.href).href);
+    });
+    const imageUrl = imageCandidates.find(candidate =>
+      candidate.includes('/listing/') &&
+      candidate.includes(id) &&
+      !/fallback|avatar|agent/i.test(candidate)
+    ) || '';
+    if (!imageUrl) continue;
+    const imageAlt = Array.from(card.querySelectorAll('img')).map(img => img.getAttribute('alt') || '').join(' ');
+    const combined = text + ' ' + imageAlt;
+
+    const bedMatch = combined.match(/(\\d+)\\s*(?:beds?|bedrooms?|BR)\\b/i);
+    const bathMatch = combined.match(/(\\d+)\\s*(?:baths?|bathrooms?|BA)\\b/i);
+    const floorSizeMatch = combined.match(/([\\d,]+)\\s*(?:sqft|sq\\s*ft|sqf)\\b/i);
+    const listedLine = lines.find(line => /^Listed on/i.test(line)) || '';
+    const agentName = card.querySelector('[da-id*="agent-name" i], [class*="agent-name" i]')?.textContent?.trim() || '';
+
+    listings.push({
+      id,
+      source: 'PropertyGuru',
+      title: normalize(title),
+      price,
+      bedrooms: bedMatch ? Number(bedMatch[1]) : /common room|master room|room rental/i.test(combined) ? 1 : 0,
+      bathrooms: bathMatch ? Number(bathMatch[1]) : 0,
+      floorSize: floorSizeMatch ? Number(floorSizeMatch[1].replace(/,/g, '')) : 0,
+      address,
+      area: '',
+      propertyType: 'HDB',
+      url: href,
+      imageUrl,
+      nearestMrt: lines.find(line => /MRT Station/i.test(line)) || '',
+      postedDate: listedLine,
+      agentName,
+    });
+  }
+
+  return JSON.stringify({
+    blocked,
+    title: document.title,
+    url: location.href,
+    bodySample: bodyText.replace(/\\s+/g, ' ').slice(0, 240),
+    listings,
+  });
+})()
+`;
+
+  const script = `
+set targetUrl to "${escapeAppleScriptString(url)}"
+set jsCode to "${escapeAppleScriptString(extractor)}"
+tell application "Safari"
+  activate
+  if (count of windows) = 0 then
+    make new document with properties {URL:targetUrl}
+    set targetTab to current tab of window 1
+  else
+    set targetTab to current tab of window 1
+    set URL of targetTab to targetUrl
+  end if
+  repeat 30 times
+    delay 1
+    try
+      set state to do JavaScript "document.readyState" in targetTab
+      if state is "complete" then exit repeat
+    end try
+  end repeat
+  repeat 10 times
+    try
+      do JavaScript "window.scrollBy(0, Math.max(700, Math.floor(window.innerHeight * 0.85)))" in targetTab
+    end try
+    delay 0.25
+  end repeat
+  try
+    do JavaScript "window.scrollTo(0, 0)" in targetTab
+  end try
+  delay 1
+  return do JavaScript jsCode in targetTab
+end tell
+`;
+
+  try {
+    return JSON.parse(await runAppleScript(script, 45000)) as SafariPropertyGuruResult;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (/Allow JavaScript from Apple Events|not authorized|not allowed|未获授权|Apple 事件/i.test(message)) {
+      throw new Error('PropertyGuru Safari access is not enabled. In Safari, enable Develop > Allow JavaScript from Apple Events, finish Cloudflare, then retry PropertyGuru.');
+    }
+
+    throw error;
+  }
 }
 
 function canConnect(host: string, port: number, timeoutMs = 250): Promise<boolean> {
@@ -716,7 +923,72 @@ async function waitForManualPropertyGuruVerification(page: Page, signal?: AbortS
   return null;
 }
 
+async function scrapePropertyGuruListingsWithSafari(searchPlan: PropertyGuruSearchPlanItem[], onProgress?: ProgressCallback, signal?: AbortSignal): Promise<Listing[]> {
+  const allListings: Listing[] = [];
+  const seenIds = new Set<string>();
+  const stoppedAreas = new Set<string>();
+
+  for (let i = 0; i < searchPlan.length; i++) {
+    throwIfAborted(signal);
+    const item = searchPlan[i];
+    if (stoppedAreas.has(item.area)) continue;
+
+    onProgress?.({
+      phase: 'opening',
+      currentPage: i + 1,
+      totalPages: searchPlan.length,
+      listingsFound: allListings.length,
+      message: `Opening PropertyGuru ${item.area} page ${item.page} in Safari...`,
+    });
+
+    const beforeCount = seenIds.size;
+    const result = await readPropertyGuruWithSafari(item.url);
+    if (result.blocked) {
+      if (allListings.length > 0) {
+        onProgress?.({
+          phase: 'parsing',
+          currentPage: i + 1,
+          totalPages: searchPlan.length,
+          listingsFound: allListings.length,
+          message: `PropertyGuru asked for Cloudflare again after ${allListings.length} listings; saving collected Safari results...`,
+        });
+        break;
+      }
+
+      throw new Error(`PropertyGuru Safari tab is still blocked by Cloudflare (${result.title || result.bodySample}). Open PropertyGuru verification in Safari, finish Cloudflare there, then retry PropertyGuru.`);
+    }
+
+    onProgress?.({
+      phase: 'parsing',
+      currentPage: i + 1,
+      totalPages: searchPlan.length,
+      listingsFound: allListings.length,
+      message: `Parsing PropertyGuru ${item.area} page ${item.page} from Safari...`,
+    });
+
+    for (const listing of result.listings) {
+      listing.source = 'PropertyGuru';
+      const detectedArea = determineArea(`${listing.address} ${listing.title}`);
+      listing.area = detectedArea === 'Other' ? item.area : detectedArea;
+      listing.propertyType = determinePropertyType(listing.title, listing.url);
+      mergeListing(allListings, seenIds, listing);
+    }
+
+    const newCount = seenIds.size - beforeCount;
+    if (result.listings.length === 0 || (item.page > 1 && newCount === 0)) {
+      stoppedAreas.add(item.area);
+    }
+  }
+
+  return allListings;
+}
+
 async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?: AbortSignal): Promise<Listing[]> {
+  const searchPlan = buildPropertyGuruSearchPlan();
+  if (shouldUseSafariForPropertyGuru()) {
+    return scrapePropertyGuruListingsWithSafari(searchPlan, onProgress, signal);
+  }
+
   const proxyServer = await getProxyServer();
   const storageState = getPropertyGuruStorageState();
   let browser: Browser | null = null;
@@ -735,15 +1007,15 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
 
     const page = await context.newPage();
 
-    for (let i = 0; i < PROPERTYGURU_SEARCH_URLS.length; i++) {
+    for (let i = 0; i < searchPlan.length; i++) {
       throwIfAborted(signal);
-      const url = PROPERTYGURU_SEARCH_URLS[i];
+      const { url, area, page: searchPage } = searchPlan[i];
       onProgress?.({
         phase: 'opening',
         currentPage: i + 1,
-        totalPages: PROPERTYGURU_SEARCH_URLS.length,
+        totalPages: searchPlan.length,
         listingsFound: allListings.length,
-        message: `Opening PropertyGuru page ${i + 1}${proxyServer ? ` via ${proxyServer}` : ''}${usesPersistentProfile ? ` with saved browser profile${isHeadless ? '' : ' in visible Chrome'}` : storageState ? ' with saved session' : ''}...`,
+        message: `Opening PropertyGuru ${area} page ${searchPage}${proxyServer ? ` via ${proxyServer}` : ''}${usesPersistentProfile ? ` with saved browser profile${isHeadless ? '' : ' in visible Chrome'}` : storageState ? ' with saved session' : ''}...`,
       });
 
       const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: PAGE_TIMEOUT_MS });
@@ -759,7 +1031,7 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
           onProgress?.({
             phase: 'opening',
             currentPage: i + 1,
-            totalPages: PROPERTYGURU_SEARCH_URLS.length,
+            totalPages: searchPlan.length,
             listingsFound: allListings.length,
             message: `PropertyGuru is asking for Cloudflare verification. Finish it in the visible Chrome window; scraper will continue automatically...`,
           });
@@ -778,9 +1050,9 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
       onProgress?.({
         phase: 'parsing',
         currentPage: i + 1,
-        totalPages: PROPERTYGURU_SEARCH_URLS.length,
+        totalPages: searchPlan.length,
         listingsFound: allListings.length,
-        message: `Parsing PropertyGuru page ${i + 1}...`,
+        message: `Parsing PropertyGuru ${area} page ${searchPage}...`,
       });
 
       const listings = parseNextData(html);
@@ -793,7 +1065,8 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
 
       for (const listing of fallbackListings) {
         listing.source = 'PropertyGuru';
-        listing.area = determineArea(listing.address || listing.title);
+        const detectedArea = determineArea(`${listing.address} ${listing.title}`);
+        listing.area = detectedArea === 'Other' ? area : detectedArea;
         listing.propertyType = determinePropertyType(listing.title, listing.url);
         mergeListing(allListings, seenIds, listing);
       }
@@ -817,7 +1090,7 @@ export async function scrapeListings(
 
   const sourceOrder: Exclude<ScraperSource, 'auto'>[] = source === 'auto' ? ['propertyguru', 'hozuko'] : [source];
   const totalPages = sourceOrder.reduce((total, item) => {
-    return total + (item === 'propertyguru' ? PROPERTYGURU_SEARCH_URLS.length : HOZUKO_SEARCH_URLS.length);
+    return total + (item === 'propertyguru' ? buildPropertyGuruSearchPlan().length : HOZUKO_SEARCH_URLS.length);
   }, 0);
 
   emit({ phase: 'starting', currentPage: 0, totalPages, listingsFound: 0, message: `Starting scraper (${source})...` });
@@ -829,7 +1102,7 @@ export async function scrapeListings(
   let needsPropertyGuruSession = false;
 
   for (const sourceName of sourceOrder) {
-    const sourcePageCount = sourceName === 'propertyguru' ? PROPERTYGURU_SEARCH_URLS.length : HOZUKO_SEARCH_URLS.length;
+    const sourcePageCount = sourceName === 'propertyguru' ? buildPropertyGuruSearchPlan().length : HOZUKO_SEARCH_URLS.length;
     const emitSourceProgress: ProgressCallback = (progress) => {
       emit({
         ...progress,

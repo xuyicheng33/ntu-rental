@@ -39,6 +39,10 @@ Your default browser will open with the requested listing and a matching rental 
 
 Default-browser verification is meant to avoid launching an automated Chrome window. It does not create a Playwright storage-state file because Safari/default-browser cookies are not automatically available to Playwright Chromium.
 
+On macOS, after Safari verification succeeds, the PropertyGuru scraper reads the verified Safari tab through AppleScript. Enable Safari `Develop > Allow JavaScript from Apple Events` first. The scraper opens NTU-adjacent `freetext` searches such as Jurong West, Boon Lay, Pioneer, Tengah, Jurong East, Clementi, Bukit Batok, Choa Chu Kang, and Bukit Panjang. It scans up to `PROPERTYGURU_MAX_PAGES_PER_SEARCH` pages per area, defaulting to `5`, and stops early for an area when later pages return no new listings.
+
+PropertyGuru images are strict-matched: a listing is saved only when the card image URL contains that listing's PropertyGuru id. This avoids fallback SVGs, agent avatars, or images from another listing.
+
 The older Chrome-based session mode is still available when you explicitly need a reusable Playwright profile:
 
 ```bash
