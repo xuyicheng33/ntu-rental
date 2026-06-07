@@ -443,11 +443,6 @@ function extractHozukoShareData(html: string): Array<{ shareTitle: string; share
   return data;
 }
 
-function extractHozukoImages(html: string): string[] {
-  const urls = [...html.matchAll(/https:\/\/imagedelivery\.net\/[^\s"'<>]+\/(?:public|thumbnail)/gi)];
-  return [...new Set(urls.map(m => m[0]))];
-}
-
 function parseHozukoListings(html: string): Listing[] {
   const listings: Listing[] = [];
   const seenIds = new Set<string>();
@@ -490,16 +485,55 @@ function parseHozukoListings(html: string): Listing[] {
     });
   }
 
-  // Post-process: match images from HTML to listings by position
-  const allImages = extractHozukoImages(html);
-  if (allImages.length > 0 && listings.length > 0) {
-    const imagesPerListing = Math.max(1, Math.floor(allImages.length / listings.length));
-    for (let i = 0; i < listings.length; i++) {
-      listings[i].imageUrl = allImages[i * imagesPerListing] || '';
+  return listings;
+}
+
+function normalizeHozukoImageUrl(url: string): string {
+  return url
+    .replace(/\\\//g, '/')
+    .replace(/\/thumbnail(?=($|[?#]))/, '/public');
+}
+
+function findMetaContent(html: string, names: string[]): string {
+  for (const name of names) {
+    const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const propertyFirst = new RegExp(`<meta[^>]+(?:property|name)=["']${escapedName}["'][^>]+content=["']([^"']+)["']`, 'i');
+    const contentFirst = new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']${escapedName}["']`, 'i');
+    const match = html.match(propertyFirst) || html.match(contentFirst);
+    if (match?.[1]) return normalizeHozukoImageUrl(match[1]);
+  }
+
+  return '';
+}
+
+function parseHozukoDetailImage(html: string): string {
+  const metaImage = findMetaContent(html, ['og:image', 'twitter:image']);
+  if (metaImage) return metaImage;
+
+  const firstImage = html.match(/https:\/\/imagedelivery\.net\/[^\s"'<>]+\/(?:public|thumbnail)/i)?.[0] || '';
+  return firstImage ? normalizeHozukoImageUrl(firstImage) : '';
+}
+
+async function enrichHozukoListingImages(listings: Listing[], signal?: AbortSignal): Promise<void> {
+  const concurrency = 4;
+  let nextIndex = 0;
+
+  async function worker() {
+    while (nextIndex < listings.length) {
+      throwIfAborted(signal);
+      const listing = listings[nextIndex++];
+
+      try {
+        const html = await fetchText(listing.url, signal);
+        const imageUrl = parseHozukoDetailImage(html);
+        if (imageUrl) listing.imageUrl = imageUrl;
+      } catch (error) {
+        console.warn(`Failed to fetch Hozuko detail image for ${listing.url}:`, error);
+      }
     }
   }
 
-  return listings;
+  await Promise.all(Array.from({ length: Math.min(concurrency, listings.length) }, () => worker()));
 }
 
 async function fetchText(url: string, signal?: AbortSignal): Promise<string> {
@@ -571,7 +605,18 @@ async function scrapeHozukoListings(onProgress?: ProgressCallback, signal?: Abor
   }
 
   const ntuListings = allListings.filter(listing => NTU_RELATED_AREAS.has(listing.area));
-  return ntuListings.length >= 5 ? ntuListings : allListings;
+  const selectedListings = ntuListings.length >= 5 ? ntuListings : allListings;
+
+  onProgress?.({
+    phase: 'parsing',
+    currentPage: HOZUKO_SEARCH_URLS.length,
+    totalPages: HOZUKO_SEARCH_URLS.length,
+    listingsFound: selectedListings.length,
+    message: `Fetching verified Hozuko listing images...`,
+  });
+  await enrichHozukoListingImages(selectedListings, signal);
+
+  return selectedListings;
 }
 
 async function createPropertyGuruContext(proxyServer: string | undefined): Promise<{ context: BrowserContext; browser: Browser | null; usesPersistentProfile: boolean }> {
