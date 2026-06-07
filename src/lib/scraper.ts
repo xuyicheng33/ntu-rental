@@ -239,6 +239,13 @@ async function readPropertyGuruWithSafari(url: string): Promise<SafariPropertyGu
     const imageAlt = Array.from(card.querySelectorAll('img')).map(img => img.getAttribute('alt') || '').join(' ');
     const combined = text + ' ' + imageAlt;
 
+    const readFeatureNumber = daId => {
+      const value = card.querySelector(\`[da-id="\${daId}"]\`)?.textContent?.trim().replace(/,/g, '') || '';
+      const match = value.match(/\\d+/);
+      return match ? Number(match[0]) : 0;
+    };
+    const featureBedrooms = readFeatureNumber('listing-card-v2-bedrooms');
+    const featureBathrooms = readFeatureNumber('listing-card-v2-bathrooms');
     const bedMatch = combined.match(/(\\d+)\\s*(?:beds?|bedrooms?|BR)\\b/i);
     const bathMatch = combined.match(/(\\d+)\\s*(?:baths?|bathrooms?|BA)\\b/i);
     const floorSizeMatch = combined.match(/([\\d,]+)\\s*(?:sqft|sq\\s*ft|sqf)\\b/i);
@@ -250,8 +257,8 @@ async function readPropertyGuruWithSafari(url: string): Promise<SafariPropertyGu
       source: 'PropertyGuru',
       title: normalize(title),
       price,
-      bedrooms: bedMatch ? Number(bedMatch[1]) : /common room|master room|room rental/i.test(combined) ? 1 : 0,
-      bathrooms: bathMatch ? Number(bathMatch[1]) : 0,
+      bedrooms: featureBedrooms || (bedMatch ? Number(bedMatch[1]) : /common room|master room|room rental/i.test(combined) ? 1 : 0),
+      bathrooms: featureBathrooms || (bathMatch ? Number(bathMatch[1]) : 0),
       floorSize: floorSizeMatch ? Number(floorSizeMatch[1].replace(/,/g, '')) : 0,
       address,
       area: '',
