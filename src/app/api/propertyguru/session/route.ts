@@ -69,6 +69,13 @@ function getSessionStatus() {
 }
 
 export async function POST() {
+  if (process.env.VERCEL === '1' || process.env.NEXT_PUBLIC_STATIC_SITE === 'true') {
+    return Response.json(
+      { error: 'PropertyGuru verification is only available on the local machine.' },
+      { status: 501 },
+    );
+  }
+
   if (sessionProcess && sessionProcess.exitCode === null) {
     return Response.json({
       ok: true,

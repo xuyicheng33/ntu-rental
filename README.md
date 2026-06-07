@@ -11,6 +11,16 @@ SCRAPER_PROXY=http://127.0.0.1:7897 npm run dev -- -p 3003
 
 Open `http://localhost:3003`.
 
+## Deploy
+
+Vercel works well for the public site as a static snapshot. The deployed app uses the committed `data/listing.json` file, filters listings in the browser, and hides the local-only scrape controls.
+
+```bash
+npm run build:static
+```
+
+This is the build command configured in `vercel.json`, so Vercel can deploy the repo directly. Live PropertyGuru scraping still runs only on the local Mac because it depends on Safari and AppleScript; after refreshing data locally, commit the updated `data/listing.json` and redeploy.
+
 ## Listing Sources
 
 The app supports three scrape modes from the UI:

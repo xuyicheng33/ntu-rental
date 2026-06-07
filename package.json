@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:static": "NEXT_PUBLIC_STATIC_SITE=true next build",
     "start": "next start",
     "lint": "eslint",
     "propertyguru:session": "node scripts/propertyguru-session.mjs",

@@ -9,6 +9,13 @@ function parseScraperSource(source: string | null): ScraperSource {
 }
 
 export async function POST(request: NextRequest) {
+  if (process.env.VERCEL === '1' || process.env.NEXT_PUBLIC_STATIC_SITE === 'true') {
+    return Response.json(
+      { error: 'Live scraping is only available in local development.' },
+      { status: 501 },
+    );
+  }
+
   const source = parseScraperSource(request.nextUrl.searchParams.get('source'));
   const encoder = new TextEncoder();
 

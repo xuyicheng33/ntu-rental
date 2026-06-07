@@ -8,9 +8,10 @@ interface HeaderProps {
   isRefreshing: boolean;
   scrapeSource: string;
   onScrapeSourceChange: (source: string) => void;
+  isStaticSite?: boolean;
 }
 
-export function Header({ lastUpdated, onRefresh, isRefreshing, scrapeSource, onScrapeSourceChange }: HeaderProps) {
+export function Header({ lastUpdated, onRefresh, isRefreshing, scrapeSource, onScrapeSourceChange, isStaticSite = false }: HeaderProps) {
   const { lang, setLang, t } = useI18n();
 
   const formattedDate = lastUpdated
@@ -51,42 +52,46 @@ export function Header({ lastUpdated, onRefresh, isRefreshing, scrapeSource, onS
             {lang === 'en' ? '中文' : 'EN'}
           </button>
 
-          <select
-            id="scrape-source"
-            name="scrapeSource"
-            value={scrapeSource}
-            onChange={(event) => onScrapeSourceChange(event.target.value)}
-            disabled={isRefreshing}
-            aria-label={t('header.source')}
-            className="h-9 rounded-lg border border-border bg-background px-2 text-xs font-medium hover:bg-muted disabled:opacity-50"
-          >
-            <option value="auto">{t('source.auto')}</option>
-            <option value="propertyguru">{t('source.propertyguru')}</option>
-            <option value="hozuko">{t('source.hozuko')}</option>
-          </select>
+          {!isStaticSite && (
+            <select
+              id="scrape-source"
+              name="scrapeSource"
+              value={scrapeSource}
+              onChange={(event) => onScrapeSourceChange(event.target.value)}
+              disabled={isRefreshing}
+              aria-label={t('header.source')}
+              className="h-9 rounded-lg border border-border bg-background px-2 text-xs font-medium hover:bg-muted disabled:opacity-50"
+            >
+              <option value="auto">{t('source.auto')}</option>
+              <option value="propertyguru">{t('source.propertyguru')}</option>
+              <option value="hozuko">{t('source.hozuko')}</option>
+            </select>
+          )}
 
-          <button
-            onClick={onRefresh}
-            disabled={isRefreshing}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-foreground text-background hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isRefreshing ? (
-              <>
-                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                {t('header.updating')}
-              </>
-            ) : (
-              <>
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
-                </svg>
-                {t('header.update')}
-              </>
-            )}
-          </button>
+          {!isStaticSite && (
+            <button
+              onClick={onRefresh}
+              disabled={isRefreshing}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-foreground text-background hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isRefreshing ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  {t('header.updating')}
+                </>
+              ) : (
+                <>
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
+                  </svg>
+                  {t('header.update')}
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </header>

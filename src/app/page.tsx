@@ -9,9 +9,15 @@ import { ScrapeProgressOverlay } from '@/components/ScrapeProgress';
 import { useI18n } from '@/lib/i18n';
 import { Listing, FilterState } from '@/lib/types';
 import { DEFAULT_FILTERS } from '@/lib/filter-defaults';
+import { filterAndSortListings, type ListingDataPayload } from '@/lib/listing-query';
 import type { ScrapeProgress } from '@/lib/scraper';
+import staticListingData from '../../data/listing.json';
 
 type StartPropertyGuruSession = (options?: { replaceProgressMessage?: boolean }) => Promise<void>;
+
+const IS_STATIC_SITE = process.env.NEXT_PUBLIC_STATIC_SITE === 'true';
+const STATIC_DATA = staticListingData as ListingDataPayload;
+const STATIC_LISTINGS = Array.isArray(STATIC_DATA.listings) ? STATIC_DATA.listings : [];
 
 function needsPropertyGuruSession(progress: ScrapeProgress) {
   return progress.action === 'propertyguru-session' ||
@@ -36,6 +42,14 @@ export default function Home() {
 
   const fetchListings = useCallback(async (currentFilters: FilterState, signal?: AbortSignal) => {
     setIsLoading(true);
+    if (IS_STATIC_SITE) {
+      setListings(filterAndSortListings(STATIC_LISTINGS, currentFilters));
+      setLastUpdated(STATIC_DATA.lastUpdated || null);
+      setIsSampleData(STATIC_LISTINGS.length === 0);
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const params = new URLSearchParams();
       if (currentFilters.minPrice > 0) params.set('minPrice', String(currentFilters.minPrice));
@@ -61,6 +75,13 @@ export default function Home() {
   }, []);
 
   const fetchAllListings = useCallback(async (signal?: AbortSignal) => {
+    if (IS_STATIC_SITE) {
+      setAllListings(filterAndSortListings(STATIC_LISTINGS, DEFAULT_FILTERS));
+      setLastUpdated(STATIC_DATA.lastUpdated || null);
+      setIsSampleData(STATIC_LISTINGS.length === 0);
+      return;
+    }
+
     try {
       const res = await fetch('/api/listings?sortBy=newest', { signal });
       if (!res.ok) throw new Error(`Listings request failed: ${res.status}`);
@@ -98,6 +119,8 @@ export default function Home() {
   }, [fetchAllListings]);
 
   const refreshWithSource = useCallback(async (source: string, autoStartSession = true) => {
+    if (IS_STATIC_SITE) return;
+
     setIsRefreshing(true);
     setScrapeProgress({ phase: 'starting', currentPage: 0, totalPages: 3, listingsFound: 0, message: t('progress.starting') });
 
@@ -151,6 +174,7 @@ export default function Home() {
   }, [fetchAllListings, fetchListings, filters, t]);
 
   const handleRefresh = async () => {
+    if (IS_STATIC_SITE) return;
     await refreshWithSource(scrapeSource);
   };
 
@@ -239,6 +263,7 @@ export default function Home() {
         isRefreshing={isRefreshing}
         scrapeSource={scrapeSource}
         onScrapeSourceChange={setScrapeSource}
+        isStaticSite={IS_STATIC_SITE}
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -300,12 +325,14 @@ export default function Home() {
       </footer>
 
       {/* Progress overlay */}
-      <ScrapeProgressOverlay
-        progress={scrapeProgress}
-        onClose={handleCloseProgress}
-        onStartPropertyGuruSession={startPropertyGuruSession}
-        isStartingPropertyGuruSession={isStartingPropertyGuruSession}
-      />
+      {!IS_STATIC_SITE && (
+        <ScrapeProgressOverlay
+          progress={scrapeProgress}
+          onClose={handleCloseProgress}
+          onStartPropertyGuruSession={startPropertyGuruSession}
+          isStartingPropertyGuruSession={isStartingPropertyGuruSession}
+        />
+      )}
     </div>
   );
 }
