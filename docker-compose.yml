@@ -1,0 +1,11 @@
+services:
+  ntu-rental:
+    build: .
+    container_name: ntu-rental
+    ports:
+      - "3003:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
