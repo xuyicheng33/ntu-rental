@@ -14,6 +14,7 @@ function getSessionStatus() {
   const lines = lastOutput.split('\n').map(line => line.trim()).filter(Boolean);
   const savedLine = [...lines].reverse().find(line => line.startsWith('Saved browser storage state'));
   const verifiedLine = [...lines].reverse().find(line => line.startsWith('Verified page:'));
+  const openedDefaultBrowserLine = [...lines].reverse().find(line => line.startsWith('Opened PropertyGuru verification in default browser.'));
   const waitingLine = [...lines].reverse().find(line => line.startsWith('{') && line.includes('"waiting"'));
   const errorLine = [...lines].reverse().find(line => /Timed out|Target page|PropertyGuru session was not saved|Error:/i.test(line));
 
@@ -30,6 +31,14 @@ function getSessionStatus() {
       saved: true,
       waiting: false,
       verifiedUrl: verifiedLine?.replace(/^Verified page:\s*/, '') || null,
+    };
+  }
+
+  if (openedDefaultBrowserLine) {
+    return {
+      state: 'opened-default-browser',
+      saved: false,
+      waiting: false,
     };
   }
 
@@ -84,7 +93,8 @@ export async function POST() {
       env: {
         ...process.env,
         SCRAPER_PROXY: process.env.SCRAPER_PROXY || 'http://127.0.0.1:7897',
-        SCRAPER_HEADLESS: process.env.SCRAPER_HEADLESS || 'false',
+        SCRAPER_HEADLESS: process.env.SCRAPER_HEADLESS || 'true',
+        PROPERTYGURU_VERIFICATION_BROWSER: process.env.PROPERTYGURU_VERIFICATION_BROWSER || 'default',
       },
     },
   );
@@ -101,7 +111,7 @@ export async function POST() {
     running: true,
     startedAt: lastStartedAt,
     status: getSessionStatus(),
-    message: 'PropertyGuru verification window opened. Finish Cloudflare in Chrome, then refresh PropertyGuru again.',
+    message: 'PropertyGuru verification opened in your default browser. Finish Cloudflare there, then retry PropertyGuru.',
   });
 }
 

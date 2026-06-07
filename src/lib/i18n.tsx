@@ -82,7 +82,7 @@ const translations: Record<Lang, Record<string, string>> = {
     'progress.close': 'Close',
     'propertyguru.openSession': 'Open PropertyGuru verification',
     'propertyguru.sessionOpening': 'Opening...',
-    'propertyguru.sessionStarted': 'PropertyGuru verification window opened. Finish Cloudflare in Chrome, then update again.',
+    'propertyguru.sessionStarted': 'PropertyGuru verification opened in your default browser. Finish Cloudflare there, then update again.',
     'propertyguru.sessionSaved': 'PropertyGuru verification saved. Update again with PropertyGuru.',
     'propertyguru.sessionFailed': 'Failed to open PropertyGuru verification',
 
@@ -162,7 +162,7 @@ const translations: Record<Lang, Record<string, string>> = {
     'progress.close': '关闭',
     'propertyguru.openSession': '打开 PropertyGuru 真人认证',
     'propertyguru.sessionOpening': '正在打开...',
-    'propertyguru.sessionStarted': '已打开 PropertyGuru 认证窗口。请在 Chrome 完成 Cloudflare 后再次更新。',
+    'propertyguru.sessionStarted': '已在默认浏览器打开 PropertyGuru 认证。请在那里完成 Cloudflare 后再次更新。',
     'propertyguru.sessionSaved': 'PropertyGuru 认证已保存。请再次用 PropertyGuru 更新。',
     'propertyguru.sessionFailed': '打开 PropertyGuru 认证失败',
 

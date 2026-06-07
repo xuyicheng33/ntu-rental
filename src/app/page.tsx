@@ -179,6 +179,14 @@ export default function Home() {
           return;
         }
 
+        if (state === 'opened-default-browser') {
+          setScrapeProgress(prev => prev
+            ? { ...prev, message: t('propertyguru.sessionStarted') }
+            : prev
+          );
+          return;
+        }
+
         if (state === 'failed') {
           const message = data.status?.error || t('propertyguru.sessionFailed');
           setScrapeProgress(prev => prev

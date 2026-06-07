@@ -13,6 +13,7 @@ const PROFILE_DIR = path.join(DATA_DIR, 'propertyguru-profile');
 const DEFAULT_URL = 'https://www.propertyguru.com.sg/listing/hdb-for-rent-653c-jurong-west-street-61-500141804';
 const DEFAULT_SEARCH_URL = 'https://www.propertyguru.com.sg/property-for-rent?market=residential&district_code%5B%5D=WD22&district_code%5B%5D=WD24&district_code%5B%5D=WD23&property_type%5B%5D=1&property_type%5B%5D=2&property_type%5B%5D=3&bedrooms%5B%5D=2&maxprice=3500&sort=date_desc';
 const LOCAL_CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const DEFAULT_VERIFICATION_BROWSER = process.env.PROPERTYGURU_VERIFICATION_BROWSER || 'default';
 const CHROME_USER_AGENT = process.env.SCRAPER_USER_AGENT ||
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36';
 const POLL_INTERVAL_MS = 3000;
@@ -26,6 +27,29 @@ function ask(message) {
       resolve(answer.trim());
     });
   });
+}
+
+function runCommand(command, args) {
+  return new Promise((resolve, reject) => {
+    execFile(command, args, error => {
+      if (error) reject(error);
+      else resolve();
+    });
+  });
+}
+
+async function openUrlInDefaultBrowser(url) {
+  if (process.platform === 'darwin') {
+    await runCommand('open', [url]);
+    return;
+  }
+
+  if (process.platform === 'win32') {
+    await runCommand('cmd', ['/c', 'start', '', url]);
+    return;
+  }
+
+  await runCommand('xdg-open', [url]);
 }
 
 function isBlocked(title, bodyText, status = 0) {
@@ -141,6 +165,33 @@ async function saveAndVerifySession(context, proxy, executablePath, usableUrl) {
 async function openPropertyGuruSession(options = {}) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 
+  const browserMode = options.browserMode || DEFAULT_VERIFICATION_BROWSER;
+  if (browserMode !== 'chrome') {
+    const targetUrl = options.targetUrl || DEFAULT_URL;
+    console.log('Opening PropertyGuru verification in the system default browser.');
+    console.log(`Browser mode: ${browserMode}`);
+    console.log(`URL: ${targetUrl}`);
+    console.log('');
+    await openUrlInDefaultBrowser(targetUrl);
+    if (targetUrl === DEFAULT_URL) {
+      await openUrlInDefaultBrowser(DEFAULT_SEARCH_URL);
+    }
+    console.log('Opened PropertyGuru verification in default browser.');
+    console.log('Finish Cloudflare in that browser window.');
+    console.log('Note: default-browser verification does not create Playwright storage state.');
+
+    if (options.interactive ?? true) {
+      await ask('\nPress Enter after PropertyGuru is visible in your default browser...');
+    }
+
+    return {
+      ok: true,
+      opened: true,
+      browserMode,
+      message: 'PropertyGuru verification opened in the system default browser.',
+    };
+  }
+
   const proxy = process.env.SCRAPER_PROXY || process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://127.0.0.1:7897';
   const targetUrl = options.targetUrl || DEFAULT_URL;
   const executablePath = fs.existsSync(LOCAL_CHROME_PATH) ? LOCAL_CHROME_PATH : undefined;
@@ -245,8 +296,10 @@ async function openPropertyGuruSession(options = {}) {
 async function main() {
   const args = process.argv.slice(2);
   const autoSave = args.includes('--auto-save');
+  const browserArg = args.find(arg => arg.startsWith('--browser='));
+  const browserMode = browserArg?.split('=')[1] || DEFAULT_VERIFICATION_BROWSER;
   const targetUrl = args.find(arg => !arg.startsWith('--')) || DEFAULT_URL;
-  const result = await openPropertyGuruSession({ targetUrl, interactive: !autoSave });
+  const result = await openPropertyGuruSession({ targetUrl, interactive: !autoSave, browserMode });
   if (result?.ok === false) {
     console.error(result.error || 'PropertyGuru session was not saved.');
     process.exitCode = 2;

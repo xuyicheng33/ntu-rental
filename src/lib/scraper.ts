@@ -104,12 +104,12 @@ function getPropertyGuruStorageState(): string | undefined {
   return fs.existsSync(PROPERTYGURU_STORAGE_STATE) ? PROPERTYGURU_STORAGE_STATE : undefined;
 }
 
-function shouldUseHeadlessForPropertyGuru(hasPersistentProfile: boolean): boolean {
+function shouldUseHeadlessForPropertyGuru(): boolean {
   if (process.env.SCRAPER_HEADLESS) {
     return process.env.SCRAPER_HEADLESS !== 'false';
   }
 
-  return !hasPersistentProfile;
+  return true;
 }
 
 function canConnect(host: string, port: number, timeoutMs = 250): Promise<boolean> {
@@ -646,7 +646,7 @@ async function scrapeHozukoListings(onProgress?: ProgressCallback, signal?: Abor
 
 async function createPropertyGuruContext(proxyServer: string | undefined): Promise<{ context: BrowserContext; browser: Browser | null; usesPersistentProfile: boolean; isHeadless: boolean }> {
   const hasPersistentProfile = fs.existsSync(PROPERTYGURU_PROFILE_DIR);
-  const isHeadless = shouldUseHeadlessForPropertyGuru(hasPersistentProfile);
+  const isHeadless = shouldUseHeadlessForPropertyGuru();
   const contextOptions = {
     userAgent: CHROME_USER_AGENT,
     viewport: { width: 1920, height: 1080 },
@@ -755,7 +755,7 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
       let html = await page.content();
 
       if (isPropertyGuruBlocked(status, headers, html)) {
-        if (!isHeadless && usesPersistentProfile) {
+        if (!isHeadless && usesPersistentProfile && process.env.PROPERTYGURU_VERIFICATION_BROWSER === 'chrome') {
           onProgress?.({
             phase: 'opening',
             currentPage: i + 1,
@@ -771,7 +771,7 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
             throw new Error(`PropertyGuru manual verification timed out after ${Math.round(PROPERTYGURU_MANUAL_WAIT_MS / 1000)} seconds.`);
           }
         } else {
-          throw new Error(`PropertyGuru blocked by Cloudflare challenge${proxyServer ? ` even via ${proxyServer}` : ''}. Run "SCRAPER_PROXY=${proxyServer || LOCAL_CLASH_PROXY} npm run propertyguru:session" and finish the browser verification, then retry PropertyGuru.`);
+          throw new Error(`PropertyGuru blocked by Cloudflare challenge${proxyServer ? ` even via ${proxyServer}` : ''}. Open PropertyGuru verification in your default browser, finish Cloudflare there, then retry PropertyGuru.`);
         }
       }
 

@@ -27,19 +27,25 @@ Hozuko does not expose a normal `page=2` style pagination flow in the rendered H
 
 PropertyGuru is protected by Cloudflare. A normal HTTP request, and even a Playwright browser through Clash, can still receive `403` with `cf-mitigated: challenge`.
 
-From the app, click `Update Data`. If PropertyGuru is blocked by Cloudflare, the progress dialog shows `Open PropertyGuru verification`. Click it, finish verification in the Chrome window, then update again.
+From the app, click `Update Data`. If PropertyGuru is blocked by Cloudflare, the progress dialog shows `Open PropertyGuru verification`. Click it to open PropertyGuru in your system default browser, such as Safari on macOS. Finish verification there, then update again.
 
-You can also create a reusable local browser session from the terminal:
+You can also open the same verification URLs from the terminal:
 
 ```bash
 SCRAPER_PROXY=http://127.0.0.1:7897 npm run propertyguru:session
 ```
 
-A Chrome window will open with the requested listing and a matching rental search. Complete the Cloudflare check and any login or consent prompts. When the actual PropertyGuru listing or search page is visible, return to the terminal and press Enter.
+Your default browser will open with the requested listing and a matching rental search. Complete the Cloudflare check and any login or consent prompts. When the actual PropertyGuru listing or search page is visible, return to the terminal and press Enter.
 
-The app button uses an auto-save mode, so after clicking `Open PropertyGuru verification` you only need to finish Cloudflare in Chrome. The local process saves the session as soon as it detects the real PropertyGuru page.
+Default-browser verification is meant to avoid launching an automated Chrome window. It does not create a Playwright storage-state file because Safari/default-browser cookies are not automatically available to Playwright Chromium.
 
-If successful, the script saves the persistent profile plus a storage-state snapshot:
+The older Chrome-based session mode is still available when you explicitly need a reusable Playwright profile:
+
+```bash
+PROPERTYGURU_VERIFICATION_BROWSER=chrome SCRAPER_HEADLESS=false SCRAPER_PROXY=http://127.0.0.1:7897 npm run propertyguru:session
+```
+
+If successful, the Chrome mode saves the persistent profile plus a storage-state snapshot:
 
 ```text
 data/propertyguru-profile/
@@ -52,7 +58,7 @@ The session tool only reports success after the same browser mode used by the sc
 
 If PropertyGuru is still on the Cloudflare challenge page, the browser stays open and the script asks you to try again. Type `q` only if you want to quit without saving a session.
 
-For local development, the PropertyGuru scraper opens the saved profile in visible Chrome by default. If Cloudflare appears during a scrape, finish the verification in that Chrome window; the scraper waits and continues automatically. In server or Docker environments, set `SCRAPER_HEADLESS=true` to force headless mode.
+For local development, the PropertyGuru scraper now runs headless by default even when a saved Chrome profile exists. If you want the old visible-Chrome verification behavior, set both `SCRAPER_HEADLESS=false` and `PROPERTYGURU_VERIFICATION_BROWSER=chrome`.
 
 Check the saved session with:
 
