@@ -1,4 +1,4 @@
-import { chromium, Browser, BrowserContext, Page } from 'playwright';
+import type { Browser, BrowserContext, Page } from 'playwright';
 import { Listing } from './types';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -889,6 +889,7 @@ async function scrapeHozukoListings(onProgress?: ProgressCallback, signal?: Abor
 }
 
 async function createPropertyGuruContext(proxyServer: string | undefined): Promise<{ context: BrowserContext; browser: Browser | null; usesPersistentProfile: boolean; isHeadless: boolean }> {
+  const { chromium } = await import('playwright');
   const hasPersistentProfile = fs.existsSync(PROPERTYGURU_PROFILE_DIR);
   const isHeadless = shouldUseHeadlessForPropertyGuru();
   const contextOptions = {
