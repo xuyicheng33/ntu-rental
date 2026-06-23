@@ -30,7 +30,6 @@ export function ListingCard({ listing, priority = false }: ListingCardProps) {
             src={listing.imageUrl}
             alt={listing.title}
             fill
-            unoptimized
             loading={priority ? 'eager' : 'lazy'}
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

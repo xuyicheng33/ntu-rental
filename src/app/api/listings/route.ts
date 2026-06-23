@@ -19,10 +19,17 @@ export async function GET(request: NextRequest) {
 
   const lastUpdated = getLastUpdated();
 
-  return Response.json({
-    listings,
-    total: listings.length,
-    lastUpdated,
-    isSampleData,
-  });
+  return Response.json(
+    {
+      listings,
+      total: listings.length,
+      lastUpdated,
+      isSampleData,
+    },
+    {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      },
+    },
+  );
 }

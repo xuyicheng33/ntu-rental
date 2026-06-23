@@ -179,7 +179,13 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>('zh');
 
   const t = useCallback(
-    (key: string) => translations[lang][key] || key,
+    (key: string) => {
+      const value = translations[lang][key];
+      if (!value && process.env.NODE_ENV === 'development') {
+        console.warn(`[i18n] Missing translation: "${key}" for lang "${lang}"`);
+      }
+      return value || key;
+    },
     [lang]
   );
 
