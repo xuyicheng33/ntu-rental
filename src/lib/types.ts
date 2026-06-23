@@ -1,6 +1,6 @@
 export interface Listing {
   id: string;
-  source?: 'PropertyGuru' | 'Hozuko' | 'Listings.sg';
+  source: 'PropertyGuru' | 'Hozuko' | 'Listings.sg';
   title: string;
   price: number;
   bedrooms: number;

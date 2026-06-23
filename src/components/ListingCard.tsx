@@ -13,7 +13,6 @@ interface ListingCardProps {
 export function ListingCard({ listing, priority = false }: ListingCardProps) {
   const { t } = useI18n();
   const areaInfo = getAreaByName(listing.area);
-  const source = listing.source || 'PropertyGuru';
   const isStudio = /studio/i.test(`${listing.title} ${listing.url}`);
 
   return (
@@ -112,7 +111,7 @@ export function ListingCard({ listing, priority = false }: ListingCardProps) {
 
         <div className="pt-2 border-t border-border/50">
           <span className="text-xs font-medium text-foreground/60 group-hover:text-foreground transition-colors flex items-center gap-1">
-            {t('listing.viewOn')} {source}
+            {t('listing.viewOn')} {listing.source}
             <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
             </svg>

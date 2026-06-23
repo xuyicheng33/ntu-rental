@@ -3,6 +3,7 @@ import { Listing } from './types';
 export const SAMPLE_LISTINGS: Listing[] = [
   {
     id: 'sample-1',
+    source: 'PropertyGuru',
     title: '2 Room HDB For Rent - Jurong West',
     price: 2200,
     bedrooms: 2,
@@ -19,6 +20,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-2',
+    source: 'PropertyGuru',
     title: '2 Room HDB For Rent - Boon Lay',
     price: 2400,
     bedrooms: 2,
@@ -35,6 +37,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-3',
+    source: 'PropertyGuru',
     title: '2 Room Condo For Rent - Clementi',
     price: 2800,
     bedrooms: 2,
@@ -51,6 +54,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-4',
+    source: 'PropertyGuru',
     title: '2 Room HDB For Rent - Bukit Batok',
     price: 1900,
     bedrooms: 2,
@@ -67,6 +71,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-5',
+    source: 'PropertyGuru',
     title: '2 Room HDB For Rent - Pioneer',
     price: 2000,
     bedrooms: 2,
@@ -83,6 +88,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-6',
+    source: 'PropertyGuru',
     title: '2 Room HDB For Rent - Choa Chu Kang',
     price: 1700,
     bedrooms: 2,
@@ -99,6 +105,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-7',
+    source: 'PropertyGuru',
     title: '2 Room HDB For Rent - Tengah',
     price: 2100,
     bedrooms: 2,
@@ -115,6 +122,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-8',
+    source: 'PropertyGuru',
     title: '2 Room HDB For Rent - Jurong West',
     price: 2500,
     bedrooms: 2,
@@ -131,6 +139,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-9',
+    source: 'PropertyGuru',
     title: '2 Room Condo For Rent - Bukit Panjang',
     price: 2600,
     bedrooms: 2,
@@ -147,6 +156,7 @@ export const SAMPLE_LISTINGS: Listing[] = [
   },
   {
     id: 'sample-10',
+    source: 'PropertyGuru',
     title: '2 Room HDB For Rent - Boon Lay',
     price: 2300,
     bedrooms: 2,
