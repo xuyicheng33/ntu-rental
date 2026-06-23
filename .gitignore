@@ -30,12 +30,14 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
+!.env.example
 
 # local scraper browser state
 /data/propertyguru-storage-state.json
 /data/propertyguru-profile/
+/data/listing.json.bak
 /tmp/
 
 # vercel

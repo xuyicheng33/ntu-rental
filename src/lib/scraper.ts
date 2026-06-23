@@ -50,6 +50,8 @@ const HOZUKO_SEARCH_URLS = [
 const DELAY_MS = 1000;
 const PAGE_TIMEOUT_MS = 15000;
 const FETCH_TIMEOUT_MS = 20000;
+const MAX_RETRIES = 3;
+const RETRY_BASE_DELAY_MS = 2000;
 const PROPERTYGURU_MANUAL_WAIT_MS = Number(process.env.PROPERTYGURU_MANUAL_WAIT_MS || 180000);
 const PROPERTYGURU_MAX_PAGES_PER_SEARCH = Math.max(1, Number(process.env.PROPERTYGURU_MAX_PAGES_PER_SEARCH || 5));
 const LOCAL_CLASH_PROXY = 'http://127.0.0.1:7897';
@@ -381,7 +383,19 @@ function writeListings(listings: Listing[]) {
   }
 
   ensureDataDir();
+
+  // Backup existing file before overwrite
+  if (fs.existsSync(LISTINGS_FILE)) {
+    try {
+      const backupFile = LISTINGS_FILE + '.bak';
+      fs.copyFileSync(LISTINGS_FILE, backupFile);
+    } catch (error) {
+      console.warn('Failed to backup listing.json:', error);
+    }
+  }
+
   const data = {
+    version: 1,
     lastUpdated: new Date().toISOString(),
     count: listings.length,
     listings,
@@ -754,7 +768,7 @@ function parseHozukoDetailImage(html: string): string {
 }
 
 async function enrichHozukoListingImages(listings: Listing[], signal?: AbortSignal): Promise<void> {
-  const concurrency = 4;
+  const concurrency = 8;
   let nextIndex = 0;
 
   async function worker() {
@@ -776,32 +790,48 @@ async function enrichHozukoListingImages(listings: Listing[], signal?: AbortSign
 }
 
 async function fetchText(url: string, signal?: AbortSignal): Promise<string> {
-  throwIfAborted(signal);
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-  const abort = () => controller.abort(signal?.reason);
-  signal?.addEventListener('abort', abort, { once: true });
+  let lastError: Error | undefined;
 
-  try {
-    const response = await fetch(url, {
-      signal: controller.signal,
-      headers: {
-        'User-Agent': CHROME_USER_AGENT,
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-SG,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
-      },
-    });
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    throwIfAborted(signal);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    const abort = () => controller.abort(signal?.reason);
+    signal?.addEventListener('abort', abort, { once: true });
 
-    if (!response.ok) {
-      const mitigated = response.headers.get('cf-mitigated');
-      throw new Error(`${response.status} ${response.statusText}${mitigated ? ` (${mitigated})` : ''}`);
+    try {
+      const response = await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          'User-Agent': CHROME_USER_AGENT,
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'Accept-Language': 'en-SG,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+        },
+      });
+
+      if (!response.ok) {
+        const mitigated = response.headers.get('cf-mitigated');
+        throw new Error(`${response.status} ${response.statusText}${mitigated ? ` (${mitigated})` : ''}`);
+      }
+
+      return await response.text();
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+
+      if (signal?.aborted) throw lastError;
+
+      if (attempt < MAX_RETRIES) {
+        const delayMs = RETRY_BASE_DELAY_MS * Math.pow(2, attempt - 1);
+        console.warn(`fetchText attempt ${attempt}/${MAX_RETRIES} failed for ${url}: ${lastError.message}. Retrying in ${delayMs}ms...`);
+        await delay(delayMs);
+      }
+    } finally {
+      clearTimeout(timeout);
+      signal?.removeEventListener('abort', abort);
     }
-
-    return await response.text();
-  } finally {
-    clearTimeout(timeout);
-    signal?.removeEventListener('abort', abort);
   }
+
+  throw lastError ?? new Error(`Failed to fetch ${url}`);
 }
 
 function mergeListing(target: Listing[], seenIds: Set<string>, listing: Listing) {
