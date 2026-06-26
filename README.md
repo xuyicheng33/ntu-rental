@@ -21,6 +21,18 @@ npm run build:static
 
 This is the build command configured in `vercel.json`, so Vercel can deploy the repo directly. Live PropertyGuru scraping still runs only on the local Mac because it depends on Safari and AppleScript; after refreshing data locally, commit the updated `data/listing.json` and redeploy.
 
+## One-click PropertyGuru Update
+
+On macOS, double-click:
+
+```text
+Update-PropertyGuru.command
+```
+
+The script runs the full local refresh flow: sync `main`, build a local production server, open PropertyGuru verification, scrape PropertyGuru through Safari, validate `data/listing.json`, run lint/static build checks, commit only `data/listing.json`, push to GitHub, and show the Vercel deployment list.
+
+When the browser opens, finish the Cloudflare/human verification, make sure a real PropertyGuru page is visible, then return to Terminal and press Enter. The script uses `next build` + `next start` instead of `next dev` because long Safari scraping can exhaust the dev server. Local browser state files such as `data/propertyguru-storage-state.json`, `data/propertyguru-profile/`, and `data/listing.json.bak` remain ignored by git.
+
 ## Listing Sources
 
 The app supports three scrape modes from the UI:
