@@ -40,11 +40,15 @@ echo ""
 
 if [[ "$HOZUKO_ONLY" == false ]]; then
   echo ""
-  echo "=== Scraping PropertyGuru ==="
-  echo "(Make sure you've passed the Cloudflare check in your browser)"
-  curl -sf -N -X POST "http://localhost:$PORT/api/scrape?source=propertyguru" | grep -o '"phase":"[^"]*"\|"listingsFound":[0-9]*' | tr '\n' ' ' || \
-    echo "PropertyGuru failed, continuing with Hozuko data only."
-  echo ""
+  echo "=== PropertyGuru: Opening browser for Cloudflare check ==="
+  echo "A browser window will open. Complete the Cloudflare check, then the script continues automatically."
+  node scripts/propertyguru-auto-bypass.mjs && {
+    echo ""
+    echo "=== Scraping PropertyGuru ==="
+    curl -sf -N -X POST "http://localhost:$PORT/api/scrape?source=propertyguru" | grep -o '"phase":"[^"]*"\|"listingsFound":[0-9]*' | tr '\n' ' ' || \
+      echo "PropertyGuru failed, continuing with Hozuko data only."
+    echo ""
+  } || echo "Cloudflare bypass failed, continuing with Hozuko data only."
 fi
 
 # 停止 dev server
