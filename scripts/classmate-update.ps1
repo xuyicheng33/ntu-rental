@@ -32,22 +32,18 @@ for ($i = 0; $i -lt 30; $i++) {
 if (-not $ready) { Stop-DevServer; Write-Error "Server failed to start"; exit 1 }
 
 Write-Host "`n=== Scraping Hozuko ==="
-try {
-    $r = Invoke-WebRequest -Method POST "http://localhost:$PORT/api/scrape?source=hozuko" -UseBasicParsing -TimeoutSec 300
-    if ($r.Content -match '"phase":"done"') { Write-Host "Hozuko: OK" }
-    else { Write-Host "Hozuko: may have failed" }
-} catch { Write-Host "Hozuko scrape failed: $_" }
+$out = curl.exe -sf -N -X POST "http://localhost:$PORT/api/scrape?source=hozuko" 2>&1
+if ($out -match '"phase":"done"') { Write-Host "Hozuko: OK" }
+else { Write-Host "Hozuko: may have failed"; Write-Host $out }
 
 Write-Host "`n=== PropertyGuru: Opening browser for Cloudflare check ==="
 Write-Host "A browser window will open. Complete the Cloudflare check, then the script continues automatically."
 node scripts/propertyguru-auto-bypass.mjs
 if ($LASTEXITCODE -eq 0) {
     Write-Host "`n=== Scraping PropertyGuru ==="
-    try {
-        $r = Invoke-WebRequest -Method POST "http://localhost:$PORT/api/scrape?source=propertyguru" -UseBasicParsing -TimeoutSec 300
-        if ($r.Content -match '"phase":"done"') { Write-Host "PropertyGuru: OK" }
-        else { Write-Host "PropertyGuru failed, using Hozuko data only." }
-    } catch { Write-Host "PropertyGuru failed, using Hozuko data only." }
+    $out = curl.exe -sf -N -X POST "http://localhost:$PORT/api/scrape?source=propertyguru" 2>&1
+    if ($out -match '"phase":"done"') { Write-Host "PropertyGuru: OK" }
+    else { Write-Host "PropertyGuru failed, using Hozuko data only." }
 } else {
     Write-Host "Cloudflare bypass failed, continuing with Hozuko data only."
 }
