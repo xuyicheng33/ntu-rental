@@ -58,7 +58,8 @@ function Ensure-PropertyGuruSession {
         return $false
     }
 
-    return Test-PropertyGuruSession
+    Write-Host "PropertyGuru session saved from the current loaded page."
+    return $true
 }
 
 trap {

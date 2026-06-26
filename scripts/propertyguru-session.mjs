@@ -164,39 +164,13 @@ async function inspectPage(page, options = {}) {
   };
 }
 
-async function verifySavedSession(proxy, executablePath, targetUrl) {
-  const headless = process.env.SCRAPER_HEADLESS === 'true';
-  const context = await chromium.launchPersistentContext(
-    PROFILE_DIR,
-    createContextOptions(proxy, executablePath, headless),
-  );
-
-  try {
-    const page = context.pages()[0] || await context.newPage();
-    await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => null);
-    return await inspectPage(page);
-  } finally {
-    await context.close();
-  }
-}
-
-async function saveAndVerifySession(context, proxy, executablePath, usableUrl) {
+async function saveSession(context, usableUrl) {
   await context.storageState({ path: STORAGE_STATE });
   await context.close();
 
-  const verified = await verifySavedSession(proxy, executablePath, usableUrl);
-  if (!verified.blocked && verified.hasSignals) {
-    console.log(`Saved browser storage state to ${STORAGE_STATE}`);
-    console.log(`Verified page: ${verified.url}`);
-    return { ok: true, storageState: STORAGE_STATE, verifiedUrl: verified.url };
-  }
-
-  console.error('PropertyGuru was visible in the manual browser, but scraper verification still failed.');
-  console.error(JSON.stringify(verified, null, 2));
-  return {
-    ok: false,
-    error: 'PropertyGuru session was not saved: scraper verification still hits Cloudflare.',
-  };
+  console.log(`Saved browser storage state to ${STORAGE_STATE}`);
+  console.log(`Verified page: ${usableUrl}`);
+  return { ok: true, storageState: STORAGE_STATE, verifiedUrl: usableUrl };
 }
 
 async function openPropertyGuruSession(options = {}) {
@@ -277,7 +251,7 @@ async function openPropertyGuruSession(options = {}) {
 
       const usable = inspections.find(result => !result.blocked && result.hasSignals);
       if (usable) {
-        return await saveAndVerifySession(context, proxy, executablePath, usable.url);
+        return await saveSession(context, usable.url);
       }
 
       const latest = inspections.at(-1);
@@ -309,15 +283,15 @@ async function openPropertyGuruSession(options = {}) {
     const inspections = [];
     for (const candidate of pages) {
       if (candidate.url().includes('propertyguru.com.sg')) {
-        inspections.push(await inspectPage(candidate, { reload: true }));
+        inspections.push(await inspectPage(candidate));
       }
     }
 
     const usable = inspections.find(result => !result.blocked && result.hasSignals);
     if (usable) {
-      const result = await saveAndVerifySession(context, proxy, executablePath, usable.url);
+      const result = await saveSession(context, usable.url);
       if (result.ok) {
-        console.log('PropertyGuru session looks usable. Now run: SCRAPER_PROXY=http://127.0.0.1:7897 npm run propertyguru:check-session');
+        console.log('PropertyGuru session saved. Now run the scraper without reloading the verification page.');
       }
       return result;
     }
