@@ -24,7 +24,7 @@ if nc -z 127.0.0.1 7897 2>/dev/null; then
 fi
 
 echo "Starting dev server..."
-npm run dev -- -p $PORT &
+SCRAPER_HEADLESS=false npm run dev -- -p $PORT &
 DEV_PID=$!
 
 echo "Waiting for server..."

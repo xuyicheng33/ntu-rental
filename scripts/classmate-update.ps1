@@ -19,7 +19,7 @@ try {
 } catch {}
 
 Write-Host "Starting dev server..."
-$job = Start-Job { Set-Location $using:PWD; npm run dev -- -p $using:PORT }
+$job = Start-Job { Set-Location $using:PWD; $env:SCRAPER_HEADLESS = "false"; npm run dev -- -p $using:PORT }
 
 Write-Host "Waiting for server..."
 $ready = $false
