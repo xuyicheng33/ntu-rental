@@ -189,13 +189,13 @@ if ! wait_for_server "http://127.0.0.1:$PORT/api/listings?sortBy=newest" 60; the
 fi
 log "Local server is ready."
 
-log "Opening PropertyGuru verification page..."
-curl -fsS -X POST "http://127.0.0.1:$PORT/api/propertyguru/session" >/dev/null || true
+log "Opening one fresh PropertyGuru verification page..."
+PROPERTYGURU_VERIFICATION_BROWSER=default node scripts/propertyguru-session.mjs --auto-save
 
 cat <<EOF
 
 PropertyGuru verification is now open in your browser.
-1. Finish the Cloudflare / human verification.
+1. Finish the Cloudflare / human verification if it appears.
 2. Make sure a real PropertyGuru listing or search page is visible.
 3. Come back to this Terminal window and press Enter.
 

@@ -31,7 +31,7 @@ Update-PropertyGuru.command
 
 The script runs the full local refresh flow: sync `main`, build a local production server, open PropertyGuru verification, scrape PropertyGuru through Safari, validate `data/listing.json`, run lint/static build checks, commit only `data/listing.json`, push to GitHub, and show the Vercel deployment list.
 
-When the browser opens, finish the Cloudflare/human verification, make sure a real PropertyGuru page is visible, then return to Terminal and press Enter. The script uses `next build` + `next start` instead of `next dev` because long Safari scraping can exhaust the dev server. Local browser state files such as `data/propertyguru-storage-state.json`, `data/propertyguru-profile/`, and `data/listing.json.bak` remain ignored by git.
+When the browser opens, finish the Cloudflare/human verification if it appears, make sure a real PropertyGuru page is visible, then return to Terminal and press Enter. The verification step opens one fresh PropertyGuru search URL with a timestamp parameter; if Cloudflare still trusts the current browser cookie, the page may load directly without showing a challenge. The script uses `next build` + `next start` instead of `next dev` because long Safari scraping can exhaust the dev server. Local browser state files such as `data/propertyguru-storage-state.json`, `data/propertyguru-profile/`, and `data/listing.json.bak` remain ignored by git.
 
 ## Listing Sources
 
@@ -57,7 +57,7 @@ You can also open the same verification URLs from the terminal:
 SCRAPER_PROXY=http://127.0.0.1:7897 npm run propertyguru:session
 ```
 
-Your default browser will open with the requested listing and a matching rental search. Complete the Cloudflare check and any login or consent prompts. When the actual PropertyGuru listing or search page is visible, return to the terminal and press Enter.
+Your default browser will open one fresh PropertyGuru search verification URL. Complete the Cloudflare check and any login or consent prompts if they appear. When the actual PropertyGuru search page is visible, return to the terminal and press Enter.
 
 Default-browser verification is meant to avoid launching an automated Chrome window. It does not create a Playwright storage-state file because Safari/default-browser cookies are not automatically available to Playwright Chromium.
 

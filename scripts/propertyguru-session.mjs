@@ -10,8 +10,8 @@ const PROJECT_ROOT = path.join(__dirname, '..');
 const DATA_DIR = path.join(PROJECT_ROOT, 'data');
 const STORAGE_STATE = path.join(DATA_DIR, 'propertyguru-storage-state.json');
 const PROFILE_DIR = path.join(DATA_DIR, 'propertyguru-profile');
-const DEFAULT_URL = 'https://www.propertyguru.com.sg/listing/hdb-for-rent-653c-jurong-west-street-61-500141804';
 const DEFAULT_SEARCH_URL = 'https://www.propertyguru.com.sg/property-for-rent?market=residential&district_code%5B%5D=WD22&district_code%5B%5D=WD24&district_code%5B%5D=WD23&property_type%5B%5D=1&property_type%5B%5D=2&property_type%5B%5D=3&bedrooms%5B%5D=2&maxprice=3500&sort=date_desc';
+const DEFAULT_VERIFICATION_URL = DEFAULT_SEARCH_URL;
 const LOCAL_CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const DEFAULT_VERIFICATION_BROWSER = process.env.PROPERTYGURU_VERIFICATION_BROWSER || 'default';
 const CHROME_USER_AGENT = process.env.SCRAPER_USER_AGENT ||
@@ -50,6 +50,16 @@ async function openUrlInDefaultBrowser(url) {
   }
 
   await runCommand('xdg-open', [url]);
+}
+
+function withFreshVerificationParam(url) {
+  try {
+    const parsed = new URL(url);
+    parsed.searchParams.set('codexVerifyAt', String(Date.now()));
+    return parsed.toString();
+  } catch {
+    return url;
+  }
 }
 
 function isBlocked(title, bodyText, status = 0) {
@@ -166,18 +176,17 @@ async function openPropertyGuruSession(options = {}) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 
   const browserMode = options.browserMode || DEFAULT_VERIFICATION_BROWSER;
+  const rawTargetUrl = options.targetUrl || DEFAULT_VERIFICATION_URL;
+  const targetUrl = options.fresh === false ? rawTargetUrl : withFreshVerificationParam(rawTargetUrl);
+
   if (browserMode !== 'chrome') {
-    const targetUrl = options.targetUrl || DEFAULT_URL;
-    console.log('Opening PropertyGuru verification in the system default browser.');
+    console.log('Opening a fresh PropertyGuru verification page in the system default browser.');
     console.log(`Browser mode: ${browserMode}`);
     console.log(`URL: ${targetUrl}`);
     console.log('');
     await openUrlInDefaultBrowser(targetUrl);
-    if (targetUrl === DEFAULT_URL) {
-      await openUrlInDefaultBrowser(DEFAULT_SEARCH_URL);
-    }
-    console.log('Opened PropertyGuru verification in default browser.');
-    console.log('Finish Cloudflare in that browser window.');
+    console.log('Opened one PropertyGuru verification page in default browser.');
+    console.log('Finish Cloudflare in that browser window if it appears.');
     console.log('Note: default-browser verification does not create Playwright storage state.');
 
     if (options.interactive ?? true) {
@@ -193,7 +202,6 @@ async function openPropertyGuruSession(options = {}) {
   }
 
   const proxy = process.env.SCRAPER_PROXY || process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://127.0.0.1:7897';
-  const targetUrl = options.targetUrl || DEFAULT_URL;
   const executablePath = fs.existsSync(LOCAL_CHROME_PATH) ? LOCAL_CHROME_PATH : undefined;
   const interactive = options.interactive ?? true;
 
@@ -203,7 +211,7 @@ async function openPropertyGuruSession(options = {}) {
   console.log(`Profile: ${PROFILE_DIR}`);
   console.log('');
   console.log('In the browser window, finish the Cloudflare check and any login/consent prompts.');
-  console.log('Two tabs will open: the requested listing and a matching rental search. Use either tab to finish verification.');
+  console.log('One verification tab will open. Use that tab to finish verification.');
   console.log('When the actual PropertyGuru listing/search page is visible, return here and press Enter.');
 
   const context = await chromium.launchPersistentContext(
@@ -216,15 +224,6 @@ async function openPropertyGuruSession(options = {}) {
     console.error(`Initial navigation failed: ${error.message}`);
   });
   bringChromeToFront();
-
-  if (targetUrl === DEFAULT_URL) {
-    const searchPage = await context.newPage();
-    await searchPage.goto(DEFAULT_SEARCH_URL, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(error => {
-      console.error(`Search navigation failed: ${error.message}`);
-    });
-    await searchPage.bringToFront().catch(() => {});
-    bringChromeToFront();
-  }
 
   if (!interactive) {
     console.log('Auto-save mode: leave this process running. It will save the session once the real PropertyGuru page is visible.');
@@ -296,10 +295,11 @@ async function openPropertyGuruSession(options = {}) {
 async function main() {
   const args = process.argv.slice(2);
   const autoSave = args.includes('--auto-save');
+  const fresh = !args.includes('--reuse-session-url');
   const browserArg = args.find(arg => arg.startsWith('--browser='));
   const browserMode = browserArg?.split('=')[1] || DEFAULT_VERIFICATION_BROWSER;
-  const targetUrl = args.find(arg => !arg.startsWith('--')) || DEFAULT_URL;
-  const result = await openPropertyGuruSession({ targetUrl, interactive: !autoSave, browserMode });
+  const targetUrl = args.find(arg => !arg.startsWith('--')) || DEFAULT_VERIFICATION_URL;
+  const result = await openPropertyGuruSession({ targetUrl, interactive: !autoSave, browserMode, fresh });
   if (result?.ok === false) {
     console.error(result.error || 'PropertyGuru session was not saved.');
     process.exitCode = 2;

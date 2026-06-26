@@ -14,7 +14,10 @@ function getSessionStatus() {
   const lines = lastOutput.split('\n').map(line => line.trim()).filter(Boolean);
   const savedLine = [...lines].reverse().find(line => line.startsWith('Saved browser storage state'));
   const verifiedLine = [...lines].reverse().find(line => line.startsWith('Verified page:'));
-  const openedDefaultBrowserLine = [...lines].reverse().find(line => line.startsWith('Opened PropertyGuru verification in default browser.'));
+  const openedDefaultBrowserLine = [...lines].reverse().find(line =>
+    line.startsWith('Opened PropertyGuru verification in default browser.') ||
+    line.startsWith('Opened one PropertyGuru verification page in default browser.')
+  );
   const waitingLine = [...lines].reverse().find(line => line.startsWith('{') && line.includes('"waiting"'));
   const errorLine = [...lines].reverse().find(line => /Timed out|Target page|PropertyGuru session was not saved|Error:/i.test(line));
 
@@ -118,7 +121,7 @@ export async function POST() {
     running: true,
     startedAt: lastStartedAt,
     status: getSessionStatus(),
-    message: 'PropertyGuru verification opened in your default browser. Finish Cloudflare there, then retry PropertyGuru.',
+    message: 'One fresh PropertyGuru verification page opened in your default browser. Finish Cloudflare there, then retry PropertyGuru.',
   });
 }
 
