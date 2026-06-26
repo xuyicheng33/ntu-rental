@@ -71,11 +71,6 @@ const LOCAL_CHROME_PATHS = [
   '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
   '/Applications/Chromium.app/Contents/MacOS/Chromium',
   '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
-  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-  'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
-  path.join(process.env.LOCALAPPDATA || '', 'Google\\Chrome\\Application\\chrome.exe'),
-  'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
-  'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
 ];
 
 export interface ScrapeProgress {
@@ -966,15 +961,6 @@ async function waitForManualPropertyGuruVerification(page: Page, signal?: AbortS
   return null;
 }
 
-async function getReusablePropertyGuruPage(context: BrowserContext): Promise<Page> {
-  const existingPage = context.pages().find(page => page.url().includes('propertyguru.com.sg'));
-  if (existingPage) {
-    return existingPage;
-  }
-
-  return context.pages()[0] || await context.newPage();
-}
-
 async function scrapePropertyGuruListingsWithSafari(searchPlan: PropertyGuruSearchPlanItem[], onProgress?: ProgressCallback, signal?: AbortSignal): Promise<Listing[]> {
   const allListings: Listing[] = [];
   const seenIds = new Set<string>();
@@ -1057,7 +1043,7 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
     usesPersistentProfile = created.usesPersistentProfile;
     isHeadless = created.isHeadless;
 
-    const page = await getReusablePropertyGuruPage(context);
+    const page = await context.newPage();
 
     for (let i = 0; i < searchPlan.length; i++) {
       throwIfAborted(signal);

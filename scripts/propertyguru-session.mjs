@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import readline from 'node:readline';
-import net from 'node:net';
 import { execFile } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -13,16 +12,7 @@ const STORAGE_STATE = path.join(DATA_DIR, 'propertyguru-storage-state.json');
 const PROFILE_DIR = path.join(DATA_DIR, 'propertyguru-profile');
 const DEFAULT_URL = 'https://www.propertyguru.com.sg/listing/hdb-for-rent-653c-jurong-west-street-61-500141804';
 const DEFAULT_SEARCH_URL = 'https://www.propertyguru.com.sg/property-for-rent?market=residential&district_code%5B%5D=WD22&district_code%5B%5D=WD24&district_code%5B%5D=WD23&property_type%5B%5D=1&property_type%5B%5D=2&property_type%5B%5D=3&bedrooms%5B%5D=2&maxprice=3500&sort=date_desc';
-const LOCAL_CHROME_PATHS = [
-  process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE,
-  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-  '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
-  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-  'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
-  path.join(process.env.LOCALAPPDATA || '', 'Google\\Chrome\\Application\\chrome.exe'),
-  'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
-  'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
-].filter(Boolean);
+const LOCAL_CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const DEFAULT_VERIFICATION_BROWSER = process.env.PROPERTYGURU_VERIFICATION_BROWSER || 'default';
 const CHROME_USER_AGENT = process.env.SCRAPER_USER_AGENT ||
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36';
@@ -94,33 +84,6 @@ function createContextOptions(proxy, executablePath, headless) {
   };
 }
 
-function getBrowserExecutablePath() {
-  return LOCAL_CHROME_PATHS.find(browserPath => fs.existsSync(browserPath));
-}
-
-function canConnect(host, port, timeoutMs = 500) {
-  return new Promise(resolve => {
-    const socket = net.createConnection({ host, port });
-    const done = ok => {
-      socket.removeAllListeners();
-      socket.destroy();
-      resolve(ok);
-    };
-    socket.setTimeout(timeoutMs);
-    socket.once('connect', () => done(true));
-    socket.once('timeout', () => done(false));
-    socket.once('error', () => done(false));
-  });
-}
-
-async function getProxyServer() {
-  if (process.env.SCRAPER_PROXY) return process.env.SCRAPER_PROXY;
-  if (process.env.HTTPS_PROXY) return process.env.HTTPS_PROXY;
-  if (process.env.HTTP_PROXY) return process.env.HTTP_PROXY;
-  if (await canConnect('127.0.0.1', 7897)) return 'http://127.0.0.1:7897';
-  return undefined;
-}
-
 function bringChromeToFront() {
   if (process.platform !== 'darwin') return;
 
@@ -164,13 +127,39 @@ async function inspectPage(page, options = {}) {
   };
 }
 
-async function saveSession(context, usableUrl) {
+async function verifySavedSession(proxy, executablePath, targetUrl) {
+  const headless = process.env.SCRAPER_HEADLESS === 'true';
+  const context = await chromium.launchPersistentContext(
+    PROFILE_DIR,
+    createContextOptions(proxy, executablePath, headless),
+  );
+
+  try {
+    const page = context.pages()[0] || await context.newPage();
+    await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => null);
+    return await inspectPage(page);
+  } finally {
+    await context.close();
+  }
+}
+
+async function saveAndVerifySession(context, proxy, executablePath, usableUrl) {
   await context.storageState({ path: STORAGE_STATE });
   await context.close();
 
-  console.log(`Saved browser storage state to ${STORAGE_STATE}`);
-  console.log(`Verified page: ${usableUrl}`);
-  return { ok: true, storageState: STORAGE_STATE, verifiedUrl: usableUrl };
+  const verified = await verifySavedSession(proxy, executablePath, usableUrl);
+  if (!verified.blocked && verified.hasSignals) {
+    console.log(`Saved browser storage state to ${STORAGE_STATE}`);
+    console.log(`Verified page: ${verified.url}`);
+    return { ok: true, storageState: STORAGE_STATE, verifiedUrl: verified.url };
+  }
+
+  console.error('PropertyGuru was visible in the manual browser, but scraper verification still failed.');
+  console.error(JSON.stringify(verified, null, 2));
+  return {
+    ok: false,
+    error: 'PropertyGuru session was not saved: scraper verification still hits Cloudflare.',
+  };
 }
 
 async function openPropertyGuruSession(options = {}) {
@@ -203,9 +192,9 @@ async function openPropertyGuruSession(options = {}) {
     };
   }
 
-  const proxy = await getProxyServer();
+  const proxy = process.env.SCRAPER_PROXY || process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://127.0.0.1:7897';
   const targetUrl = options.targetUrl || DEFAULT_URL;
-  const executablePath = getBrowserExecutablePath();
+  const executablePath = fs.existsSync(LOCAL_CHROME_PATH) ? LOCAL_CHROME_PATH : undefined;
   const interactive = options.interactive ?? true;
 
   console.log('Opening PropertyGuru in a persistent Chrome profile.');
@@ -251,7 +240,7 @@ async function openPropertyGuruSession(options = {}) {
 
       const usable = inspections.find(result => !result.blocked && result.hasSignals);
       if (usable) {
-        return await saveSession(context, usable.url);
+        return await saveAndVerifySession(context, proxy, executablePath, usable.url);
       }
 
       const latest = inspections.at(-1);
@@ -283,15 +272,15 @@ async function openPropertyGuruSession(options = {}) {
     const inspections = [];
     for (const candidate of pages) {
       if (candidate.url().includes('propertyguru.com.sg')) {
-        inspections.push(await inspectPage(candidate));
+        inspections.push(await inspectPage(candidate, { reload: true }));
       }
     }
 
     const usable = inspections.find(result => !result.blocked && result.hasSignals);
     if (usable) {
-      const result = await saveSession(context, usable.url);
+      const result = await saveAndVerifySession(context, proxy, executablePath, usable.url);
       if (result.ok) {
-        console.log('PropertyGuru session saved. Now run the scraper without reloading the verification page.');
+        console.log('PropertyGuru session looks usable. Now run: SCRAPER_PROXY=http://127.0.0.1:7897 npm run propertyguru:check-session');
       }
       return result;
     }

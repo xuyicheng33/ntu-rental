@@ -177,22 +177,31 @@ async function main() {
     }
 
     if (passed) {
-      let saved = false;
+      // Double-check by reloading
+      console.log('[bypass] Reloading to confirm...');
+      for (const p of context.pages()) {
+        if (!p.url().includes('propertyguru.com.sg')) continue;
+        await p.reload({ waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {});
+        await p.waitForTimeout(3000);
+      }
+
+      // Verify at least one page is clean
+      let anyPassed = false;
       for (const p of context.pages()) {
         const result = await checkPage(p);
         if (result.passed) {
+          anyPassed = true;
           console.log(`[bypass] Confirmed: "${result.title}"`);
-          await context.storageState({ path: STORAGE_STATE });
-          console.log(`\n[bypass] SUCCESS! Session saved to ${STORAGE_STATE}`);
-          console.log('[bypass] You can now run the scraper with PropertyGuru data.');
-          saved = true;
           break;
         }
       }
 
-      if (!saved) {
-        console.log('\n[bypass] Verification was detected, but no usable page was available to save.');
-        process.exitCode = 2;
+      if (anyPassed) {
+        await context.storageState({ path: STORAGE_STATE });
+        console.log(`\n[bypass] SUCCESS! Session saved to ${STORAGE_STATE}`);
+        console.log('[bypass] You can now run the scraper with PropertyGuru data.');
+      } else {
+        console.log('\n[bypass] Verification lost after reload. Try again.');
       }
     } else {
       console.log('\n[bypass] Timed out. No session saved.');
