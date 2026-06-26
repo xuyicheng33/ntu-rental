@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import readline from 'node:readline';
+import net from 'node:net';
 import { execFile } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -12,7 +13,16 @@ const STORAGE_STATE = path.join(DATA_DIR, 'propertyguru-storage-state.json');
 const PROFILE_DIR = path.join(DATA_DIR, 'propertyguru-profile');
 const DEFAULT_URL = 'https://www.propertyguru.com.sg/listing/hdb-for-rent-653c-jurong-west-street-61-500141804';
 const DEFAULT_SEARCH_URL = 'https://www.propertyguru.com.sg/property-for-rent?market=residential&district_code%5B%5D=WD22&district_code%5B%5D=WD24&district_code%5B%5D=WD23&property_type%5B%5D=1&property_type%5B%5D=2&property_type%5B%5D=3&bedrooms%5B%5D=2&maxprice=3500&sort=date_desc';
-const LOCAL_CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const LOCAL_CHROME_PATHS = [
+  process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE,
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+  path.join(process.env.LOCALAPPDATA || '', 'Google\\Chrome\\Application\\chrome.exe'),
+  'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+  'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+].filter(Boolean);
 const DEFAULT_VERIFICATION_BROWSER = process.env.PROPERTYGURU_VERIFICATION_BROWSER || 'default';
 const CHROME_USER_AGENT = process.env.SCRAPER_USER_AGENT ||
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36';
@@ -82,6 +92,33 @@ function createContextOptions(proxy, executablePath, headless) {
       '--no-first-run',
     ],
   };
+}
+
+function getBrowserExecutablePath() {
+  return LOCAL_CHROME_PATHS.find(browserPath => fs.existsSync(browserPath));
+}
+
+function canConnect(host, port, timeoutMs = 500) {
+  return new Promise(resolve => {
+    const socket = net.createConnection({ host, port });
+    const done = ok => {
+      socket.removeAllListeners();
+      socket.destroy();
+      resolve(ok);
+    };
+    socket.setTimeout(timeoutMs);
+    socket.once('connect', () => done(true));
+    socket.once('timeout', () => done(false));
+    socket.once('error', () => done(false));
+  });
+}
+
+async function getProxyServer() {
+  if (process.env.SCRAPER_PROXY) return process.env.SCRAPER_PROXY;
+  if (process.env.HTTPS_PROXY) return process.env.HTTPS_PROXY;
+  if (process.env.HTTP_PROXY) return process.env.HTTP_PROXY;
+  if (await canConnect('127.0.0.1', 7897)) return 'http://127.0.0.1:7897';
+  return undefined;
 }
 
 function bringChromeToFront() {
@@ -192,9 +229,9 @@ async function openPropertyGuruSession(options = {}) {
     };
   }
 
-  const proxy = process.env.SCRAPER_PROXY || process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://127.0.0.1:7897';
+  const proxy = await getProxyServer();
   const targetUrl = options.targetUrl || DEFAULT_URL;
-  const executablePath = fs.existsSync(LOCAL_CHROME_PATH) ? LOCAL_CHROME_PATH : undefined;
+  const executablePath = getBrowserExecutablePath();
   const interactive = options.interactive ?? true;
 
   console.log('Opening PropertyGuru in a persistent Chrome profile.');

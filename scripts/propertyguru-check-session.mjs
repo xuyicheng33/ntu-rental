@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import net from 'node:net';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
@@ -9,7 +10,43 @@ const DATA_DIR = path.join(PROJECT_ROOT, 'data');
 const STORAGE_STATE = path.join(DATA_DIR, 'propertyguru-storage-state.json');
 const PROFILE_DIR = path.join(DATA_DIR, 'propertyguru-profile');
 const DEFAULT_URL = 'https://www.propertyguru.com.sg/listing/hdb-for-rent-653c-jurong-west-street-61-500141804';
-const LOCAL_CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const LOCAL_CHROME_PATHS = [
+  process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE,
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+  path.join(process.env.LOCALAPPDATA || '', 'Google\\Chrome\\Application\\chrome.exe'),
+  'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+  'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+].filter(Boolean);
+
+function getBrowserExecutablePath() {
+  return LOCAL_CHROME_PATHS.find(browserPath => fs.existsSync(browserPath));
+}
+
+function canConnect(host, port, timeoutMs = 500) {
+  return new Promise(resolve => {
+    const socket = net.createConnection({ host, port });
+    const done = ok => {
+      socket.removeAllListeners();
+      socket.destroy();
+      resolve(ok);
+    };
+    socket.setTimeout(timeoutMs);
+    socket.once('connect', () => done(true));
+    socket.once('timeout', () => done(false));
+    socket.once('error', () => done(false));
+  });
+}
+
+async function getProxyServer() {
+  if (process.env.SCRAPER_PROXY) return process.env.SCRAPER_PROXY;
+  if (process.env.HTTPS_PROXY) return process.env.HTTPS_PROXY;
+  if (process.env.HTTP_PROXY) return process.env.HTTP_PROXY;
+  if (await canConnect('127.0.0.1', 7897)) return 'http://127.0.0.1:7897';
+  return undefined;
+}
 
 function isBlocked(title, bodyText, status) {
   return status === 403 || /Cloudflare|Just a moment|正在进行安全验证|Enable JavaScript and cookies|Checking if the site connection is secure/i.test(`${title}\n${bodyText}`);
@@ -56,9 +93,9 @@ async function main() {
     process.exit(2);
   }
 
-  const proxy = process.env.SCRAPER_PROXY || process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://127.0.0.1:7897';
+  const proxy = await getProxyServer();
   const targetUrl = process.argv[2] || DEFAULT_URL;
-  const executablePath = fs.existsSync(LOCAL_CHROME_PATH) ? LOCAL_CHROME_PATH : undefined;
+  const executablePath = getBrowserExecutablePath();
 
   if (hasProfile) {
     const context = await chromium.launchPersistentContext(PROFILE_DIR, {
