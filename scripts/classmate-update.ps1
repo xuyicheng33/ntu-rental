@@ -1,8 +1,8 @@
 # Windows 版更新脚本
 # 用法: PowerShell -ExecutionPolicy Bypass -File scripts\classmate-update.ps1
-# 可选: PowerShell -ExecutionPolicy Bypass -File scripts\classmate-update.ps1 -HozukoOnly
+# 可选: PowerShell -ExecutionPolicy Bypass -File scripts\classmate-update.ps1 -WithHozuko
 param(
-    [switch]$HozukoOnly
+    [switch]$WithHozuko
 )
 
 $ErrorActionPreference = "Stop"
@@ -29,37 +29,6 @@ function Find-ChromePath {
 
 function Stop-DevServer {
     if ($job) { Stop-Job $job; Remove-Job $job -Force }
-}
-
-function Test-PropertyGuruSession {
-    Write-Host "`n=== PropertyGuru: Checking saved session ==="
-    $env:SCRAPER_HEADLESS = "false"
-    $env:PROPERTYGURU_BROWSER = "chrome"
-    $env:PROPERTYGURU_VERIFICATION_BROWSER = "chrome"
-    node scripts/propertyguru-check-session.mjs
-    return $LASTEXITCODE -eq 0
-}
-
-function Ensure-PropertyGuruSession {
-    if (Test-PropertyGuruSession) {
-        Write-Host "PropertyGuru session: OK"
-        return $true
-    }
-
-    Write-Host "`n=== PropertyGuru: Manual verification required ==="
-    Write-Host "A Chrome window will open once. Complete the check there, then return to this terminal and press Enter."
-    Write-Host "If verification cannot be saved, the script will not keep reopening verification windows."
-    $env:SCRAPER_HEADLESS = "false"
-    $env:PROPERTYGURU_BROWSER = "chrome"
-    $env:PROPERTYGURU_VERIFICATION_BROWSER = "chrome"
-    node scripts/propertyguru-session.mjs --browser=chrome
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "PropertyGuru verification did not save a reusable session."
-        return $false
-    }
-
-    Write-Host "PropertyGuru session saved from the current loaded page."
-    return $true
 }
 
 trap {
@@ -107,21 +76,18 @@ for ($i = 0; $i -lt 30; $i++) {
 }
 if (-not $ready) { Write-Error "Server failed to start"; exit 1 }
 
-Write-Host "`n=== Scraping Hozuko ==="
-$out = curl.exe -sf -N -X POST "http://localhost:$PORT/api/scrape?source=hozuko" 2>&1
-if ($out -match '"phase":"done"') { Write-Host "Hozuko: OK" }
-else { Write-Host "Hozuko: may have failed"; Write-Host $out }
-
-if ($HozukoOnly) {
-    Write-Host "`nSkipping PropertyGuru because -HozukoOnly was set."
-} elseif (Ensure-PropertyGuruSession) {
-    Write-Host "`n=== Scraping PropertyGuru ==="
-    $out = curl.exe -sf -N -X POST "http://localhost:$PORT/api/scrape?source=propertyguru" 2>&1
-    if ($out -match '"phase":"done"') { Write-Host "PropertyGuru: OK" }
-    else { Write-Host "PropertyGuru failed after one verified-session attempt. Keeping Hozuko data."; Write-Host $out }
-} else {
-    Write-Host "PropertyGuru skipped after one session attempt. Keeping Hozuko data."
+if ($WithHozuko) {
+    Write-Host "`n=== Scraping Hozuko ==="
+    $out = curl.exe -sf -N -X POST "http://localhost:$PORT/api/scrape?source=hozuko" 2>&1
+    if ($out -match '"phase":"done"') { Write-Host "Hozuko: OK" }
+    else { Write-Host "Hozuko: may have failed"; Write-Host $out }
 }
+
+Write-Host "`n=== Scraping PropertyGuru ==="
+Write-Host "If Cloudflare appears, finish it in the visible Chrome window. The scraper will continue from that same window."
+$out = curl.exe -sf -N -X POST "http://localhost:$PORT/api/scrape?source=propertyguru" 2>&1
+if ($out -match '"phase":"done"') { Write-Host "PropertyGuru: OK" }
+else { Write-Host "PropertyGuru failed."; Write-Host $out }
 
 Stop-DevServer
 

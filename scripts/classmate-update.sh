@@ -1,6 +1,6 @@
 #!/bin/bash
-# 同学用：本地爬取数据并推送到 GitHub，Vercel 自动更新线上
-# 用法: bash scripts/classmate-update.sh [--hozuko-only]
+# 同学用：本地爬取 PropertyGuru 数据并推送到 GitHub，Vercel 自动更新线上
+# 用法: bash scripts/classmate-update.sh [--with-hozuko]
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -14,8 +14,8 @@ cleanup() {
 }
 trap cleanup EXIT
 
-HOZUKO_ONLY=false
-[[ "${1:-}" == "--hozuko-only" ]] && HOZUKO_ONLY=true
+WITH_HOZUKO=false
+[[ "${1:-}" == "--with-hozuko" ]] && WITH_HOZUKO=true
 
 # 检测代理
 if nc -z 127.0.0.1 7897 2>/dev/null; then
@@ -24,7 +24,7 @@ if nc -z 127.0.0.1 7897 2>/dev/null; then
 fi
 
 echo "Starting dev server..."
-SCRAPER_HEADLESS=false PROPERTYGURU_VERIFICATION_BROWSER=chrome npm run dev -- -p $PORT &
+SCRAPER_HEADLESS=false npm run dev -- -p $PORT &
 DEV_PID=$!
 
 echo "Waiting for server..."
@@ -34,22 +34,18 @@ for i in $(seq 1 30); do
 done
 
 echo ""
-echo "=== Scraping Hozuko ==="
-curl -sf -N -X POST "http://localhost:$PORT/api/scrape?source=hozuko" | grep -o '"phase":"[^"]*"\|"listingsFound":[0-9]*' | tr '\n' ' '
-echo ""
-
-if [[ "$HOZUKO_ONLY" == false ]]; then
+if [[ "$WITH_HOZUKO" == true ]]; then
   echo ""
-  echo "=== PropertyGuru: Opening browser for Cloudflare check ==="
-  echo "A browser window will open. Complete the Cloudflare check, then the script continues automatically."
-  node scripts/propertyguru-auto-bypass.mjs && {
-    echo ""
-    echo "=== Scraping PropertyGuru ==="
-    curl -sf -N -X POST "http://localhost:$PORT/api/scrape?source=propertyguru" | grep -o '"phase":"[^"]*"\|"listingsFound":[0-9]*' | tr '\n' ' ' || \
-      echo "PropertyGuru failed, continuing with Hozuko data only."
-    echo ""
-  } || echo "Cloudflare bypass failed, continuing with Hozuko data only."
+  echo "=== Scraping Hozuko ==="
+  curl -sf -N -X POST "http://localhost:$PORT/api/scrape?source=hozuko" | grep -o '"phase":"[^"]*"\|"listingsFound":[0-9]*' | tr '\n' ' '
+  echo ""
 fi
+
+echo ""
+echo "=== Scraping PropertyGuru ==="
+echo "On macOS this uses the default Safari verification path unless you set PROPERTYGURU_BROWSER=chrome yourself."
+curl -sf -N -X POST "http://localhost:$PORT/api/scrape?source=propertyguru" | grep -o '"phase":"[^"]*"\|"listingsFound":[0-9]*' | tr '\n' ' '
+echo ""
 
 # 停止 dev server
 kill "$DEV_PID" 2>/dev/null || true

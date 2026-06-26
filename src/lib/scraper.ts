@@ -966,6 +966,15 @@ async function waitForManualPropertyGuruVerification(page: Page, signal?: AbortS
   return null;
 }
 
+async function getReusablePropertyGuruPage(context: BrowserContext): Promise<Page> {
+  const existingPage = context.pages().find(page => page.url().includes('propertyguru.com.sg'));
+  if (existingPage) {
+    return existingPage;
+  }
+
+  return context.pages()[0] || await context.newPage();
+}
+
 async function scrapePropertyGuruListingsWithSafari(searchPlan: PropertyGuruSearchPlanItem[], onProgress?: ProgressCallback, signal?: AbortSignal): Promise<Listing[]> {
   const allListings: Listing[] = [];
   const seenIds = new Set<string>();
@@ -1048,7 +1057,7 @@ async function scrapePropertyGuruListings(onProgress?: ProgressCallback, signal?
     usesPersistentProfile = created.usesPersistentProfile;
     isHeadless = created.isHeadless;
 
-    const page = await context.newPage();
+    const page = await getReusablePropertyGuruPage(context);
 
     for (let i = 0; i < searchPlan.length; i++) {
       throwIfAborted(signal);
