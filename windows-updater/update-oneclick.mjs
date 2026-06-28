@@ -269,7 +269,10 @@ async function main() {
   await run('git', ['pull', '--ff-only']);
 
   log('Installing npm dependencies...');
-  await run('npm', ['ci']);
+  const installArgs = process.platform === 'win32'
+    ? ['install', '--no-audit', '--no-fund']
+    : ['ci'];
+  await run('npm', installArgs);
 
   log('Installing Playwright Chromium browser...');
   await run('npx', ['playwright', 'install', 'chromium']);
