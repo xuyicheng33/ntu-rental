@@ -60,7 +60,7 @@ function run(command, args = [], options = {}) {
       cwd: options.cwd || PROJECT_ROOT,
       env: options.env || process.env,
       stdio: options.capture ? ['ignore', 'pipe', 'pipe'] : 'inherit',
-      shell: false,
+      shell: process.platform === 'win32',
     });
 
     let stdout = '';
@@ -181,7 +181,7 @@ function startServer(port, env) {
     cwd: PROJECT_ROOT,
     env,
     stdio: ['ignore', 'pipe', 'pipe'],
-    shell: false,
+    shell: process.platform === 'win32',
   });
   child.stdout.pipe(out);
   child.stderr.pipe(out);
