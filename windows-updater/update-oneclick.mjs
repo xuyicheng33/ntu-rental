@@ -141,6 +141,34 @@ async function detectProxyEnv(baseEnv) {
   return baseEnv;
 }
 
+
+function normalizeLockfileForWindowsNpm() {
+  const lockPath = path.join(PROJECT_ROOT, 'package-lock.json');
+  if (!fs.existsSync(lockPath)) return;
+
+  const lock = JSON.parse(fs.readFileSync(lockPath, 'utf8'));
+  let changed = false;
+
+  for (const [key, value] of Object.entries(lock.packages || {})) {
+    if (!value || typeof value !== 'object') continue;
+
+    // Some npm versions can generate optional nested wasm dependency placeholders
+    // that contain only { optional: true }. Windows npm then fails with
+    // "Invalid Version" before it can repair the lockfile. These entries are
+    // safe to remove because the parent optional dependency declares the real
+    // dependency range and npm can resolve it when that platform needs it.
+    if (value.optional === true && !value.version && !value.resolved && !value.integrity) {
+      delete lock.packages[key];
+      changed = true;
+    }
+  }
+
+  if (changed) {
+    fs.writeFileSync(lockPath, `${JSON.stringify(lock, null, 2)}\n`);
+    log('Normalized package-lock.json optional dependency placeholders for Windows npm.');
+  }
+}
+
 function validateListingJson() {
   const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   const listings = Array.isArray(data.listings) ? data.listings : [];
@@ -267,6 +295,8 @@ async function main() {
   log('Syncing latest main from GitHub...');
   await run('git', ['fetch', 'origin', 'main']);
   await run('git', ['pull', '--ff-only']);
+
+  normalizeLockfileForWindowsNpm();
 
   log('Installing npm dependencies...');
   const installArgs = process.platform === 'win32'
