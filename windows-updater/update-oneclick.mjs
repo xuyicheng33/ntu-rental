@@ -92,6 +92,37 @@ function ask(question) {
   }));
 }
 
+
+function detectSystemChromiumBrowser() {
+  if (process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE && fs.existsSync(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE)) {
+    return process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE;
+  }
+
+  const env = process.env;
+  const candidates = [];
+
+  if (process.platform === 'win32') {
+    for (const base of [env.PROGRAMFILES, env['PROGRAMFILES(X86)'], env.LOCALAPPDATA].filter(Boolean)) {
+      candidates.push(
+        path.join(base, 'Google', 'Chrome', 'Application', 'chrome.exe'),
+        path.join(base, 'Microsoft', 'Edge', 'Application', 'msedge.exe'),
+        path.join(base, 'BraveSoftware', 'Brave-Browser', 'Application', 'brave.exe'),
+      );
+    }
+  } else if (process.platform === 'darwin') {
+    candidates.push(
+      '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+      '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+      '/Applications/Chromium.app/Contents/MacOS/Chromium',
+      '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+    );
+  } else {
+    candidates.push('/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/usr/bin/microsoft-edge');
+  }
+
+  return candidates.find(candidate => candidate && fs.existsSync(candidate));
+}
+
 async function commandExists(command, args = ['--version']) {
   try {
     await run(command, args, { capture: true });
@@ -304,8 +335,13 @@ async function main() {
     : ['ci'];
   await run('npm', installArgs);
 
-  log('Installing Playwright Chromium browser...');
-  await run('npx', ['playwright', 'install', 'chromium']);
+  const systemBrowserPath = detectSystemChromiumBrowser();
+  if (systemBrowserPath) {
+    log(`Using system Chromium browser: ${systemBrowserPath}`);
+  } else {
+    log('Installing Playwright Chromium browser...');
+    await run('npx', ['playwright', 'install', 'chromium']);
+  }
 
   let env = {
     ...process.env,
@@ -316,6 +352,7 @@ async function main() {
     SCRAPER_HEADLESS: 'false',
     PROPERTYGURU_VERIFICATION_BROWSER: 'chrome',
     PROPERTYGURU_BROWSER: 'chrome',
+    ...(systemBrowserPath ? { PLAYWRIGHT_CHROMIUM_EXECUTABLE: systemBrowserPath } : {}),
   };
   env = await detectProxyEnv(env);
   log(`Proxy: ${env.SCRAPER_PROXY || env.HTTPS_PROXY || env.HTTP_PROXY || 'none'}`);
