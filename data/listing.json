@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-28T15:11:54.047Z",
-  "count": 501,
+  "lastUpdated": "2026-06-28T17:53:59.188Z",
+  "count": 536,
   "listings": [
     {
       "id": "25203857",
@@ -89,21 +89,21 @@
       "agentName": "Quek Hwi Jong"
     },
     {
-      "id": "25269095",
+      "id": "24079825",
       "source": "PropertyGuru",
-      "title": "520 Jurong West Street 52",
-      "price": 1000,
+      "title": "921 Jurong West Street 92",
+      "price": 1500,
       "bedrooms": 1,
-      "bathrooms": 0,
+      "bathrooms": 1,
       "floorSize": 200,
-      "address": "520 Jurong West Street 52, 520 Jurong West Street 52",
+      "address": "921 Jurong West Street 92, 921 Jurong West Street 92",
       "area": "Jurong West",
       "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-520-jurong-west-street-52-25269095",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25269095/UPHO.150601045.V800/520-Jurong-West-Street-52-Boon-Lay-Jurong-Tuas-Singapore.jpg",
-      "nearestMrt": "7 min (550 m) from EW26 Lakeside MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (9h ago)",
-      "agentName": "(Dennis) Chng Swee Cher"
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-921-jurong-west-street-92-24079825",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24079825/UPHO.160480039.V800/921-Jurong-West-Street-92-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "19 min (1.58 km) from EW28 Pioneer MRT Station",
+      "postedDate": "Listed on Jun 28, 2026 (2h ago)",
+      "agentName": "Sherlyn Wong"
     },
     {
       "id": "500182189",
@@ -121,6 +121,23 @@
       "nearestMrt": "14 min (1.13 km) from EW25 Chinese Garden MRT Station",
       "postedDate": "Listed on Jun 25, 2026 (3d ago)",
       "agentName": "Charles Yi Ming"
+    },
+    {
+      "id": "25269095",
+      "source": "PropertyGuru",
+      "title": "520 Jurong West Street 52",
+      "price": 1000,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 200,
+      "address": "520 Jurong West Street 52, 520 Jurong West Street 52",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-520-jurong-west-street-52-25269095",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25269095/UPHO.150601045.V800/520-Jurong-West-Street-52-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "7 min (550 m) from EW26 Lakeside MRT Station",
+      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
+      "agentName": "(Dennis) Chng Swee Cher"
     },
     {
       "id": "500184089",
@@ -204,7 +221,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-guilin-view-500180698",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500180698/UPHO.160424616.V800/Guilin-View-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "5 min (460 m) from NS3 Bukit Gombak MRT Station",
-      "postedDate": "Listed on Jun 23, 2026 (4d ago)",
+      "postedDate": "Listed on Jun 23, 2026 (5d ago)",
       "agentName": "Elaine Goi"
     },
     {
@@ -240,6 +257,40 @@
       "nearestMrt": "11 min (910 m) from EW26 Lakeside MRT Station",
       "postedDate": "Listed on Jun 27, 2026 (1d ago)",
       "agentName": ""
+    },
+    {
+      "id": "500182728",
+      "source": "PropertyGuru",
+      "title": "723 Jurong West Avenue 5",
+      "price": 1200,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "723 Jurong West Avenue 5, 723 Jurong West Avenue 5",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-723-jurong-west-avenue-5-500182728",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500182728/UPHO.160452899.V800/723-Jurong-West-Avenue-5-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "17 min (1.41 km) from EW28 Pioneer MRT Station",
+      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
+      "agentName": "Ping Neo"
+    },
+    {
+      "id": "500183786",
+      "source": "PropertyGuru",
+      "title": "723 Jurong West Avenue 5",
+      "price": 1050,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "723 Jurong West Avenue 5, 723 Jurong West Avenue 5",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-723-jurong-west-avenue-5-500183786",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500183786/UPHO.160467865.V800/723-Jurong-West-Avenue-5-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "17 min (1.41 km) from EW28 Pioneer MRT Station",
+      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
+      "agentName": "Ping Neo"
     },
     {
       "id": "500169847",
@@ -323,7 +374,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-676a-jurong-west-street-64-500158436",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500158436/UPHO.160117600.V800/676A-Jurong-West-Street-64-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "15 min (1.22 km) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
+      "postedDate": "Listed on Jun 26, 2026 (3d ago)",
       "agentName": "Louis Ang 洪家豪"
     },
     {
@@ -347,7 +398,7 @@
       "id": "500180964",
       "source": "PropertyGuru",
       "title": "484 Jurong West Avenue 1",
-      "price": 3000,
+      "price": 3200,
       "bedrooms": 2,
       "bathrooms": 2,
       "floorSize": 721,
@@ -378,21 +429,21 @@
       "agentName": "Nora Omar"
     },
     {
-      "id": "500142249",
+      "id": "24578858",
       "source": "PropertyGuru",
-      "title": "Common Room rental",
-      "price": 1200,
+      "title": "Common bedroom for rent",
+      "price": 999,
       "bedrooms": 1,
       "bathrooms": 0,
-      "floorSize": 100,
-      "address": "843 Jurong West Street 81, 843 Jurong West Street 81",
+      "floorSize": 1130,
+      "address": "460 Jurong West Street 41, 460 Jurong West Street 41",
       "area": "Jurong West",
-      "propertyType": "Room",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-843-jurong-west-street-81-500142249",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500142249/UPHO.159884890.V800/843-Jurong-West-Street-81-Boon-Lay-Jurong-Tuas-Singapore.jpg",
-      "nearestMrt": "12 min (1.04 km) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 25, 2026 (3d ago)",
-      "agentName": "Faith Quek"
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-460-jurong-west-street-41-24578858",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24578858/UPHO.149308262.V800/460-Jurong-West-Street-41-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "11 min (940 m) from EW26 Lakeside MRT Station",
+      "postedDate": "Listed on Jun 22, 2026 (6d ago)",
+      "agentName": "Michelle Goh"
     },
     {
       "id": "20761102",
@@ -548,21 +599,38 @@
       "agentName": "Frederick Foo"
     },
     {
-      "id": "500153608",
+      "id": "500069782",
       "source": "PropertyGuru",
-      "title": "Cozy Common Room for Rent at Blk 609 Jurong West – $1,100 Monthly",
-      "price": 1000,
+      "title": "Immediate, well maintained",
+      "price": 700,
       "bedrooms": 1,
       "bathrooms": 0,
-      "floorSize": 150,
-      "address": "609 Jurong West Street 65, 609 Jurong West Street 65",
+      "floorSize": 350,
+      "address": "552 Jurong West Street 42, 552 Jurong West Street 42",
       "area": "Jurong West",
-      "propertyType": "Room",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-609-jurong-west-street-65-500153608",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500153608/UPHO.160047441.V800/609-Jurong-West-Street-65-Boon-Lay-Jurong-Tuas-Singapore.jpg",
-      "nearestMrt": "4 min (360 m) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on May 27, 2026 (1mo ago)",
-      "agentName": "Ben Chew"
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-552-jurong-west-street-42-500069782",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500069782/UPHO.158806657.V800/552-Jurong-West-Street-42-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "16 min (1.31 km) from EW26 Lakeside MRT Station",
+      "postedDate": "Listed on May 28, 2026 (1mo ago)",
+      "agentName": "Heng Soon Kiat (SK)"
+    },
+    {
+      "id": "500185388",
+      "source": "PropertyGuru",
+      "title": "275D Jurong West Street 25",
+      "price": 2700,
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "floorSize": 1011,
+      "address": "275D Jurong West Street 25, 275D Jurong West Street 25",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-275d-jurong-west-street-25-500185388",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185388/UPHO.160489481.V800/275D-Jurong-West-Street-25-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "11 min (950 m) from JS6 Jurong West MRT Station (U/C)",
+      "postedDate": "Listed on Jun 29, 2026 (1h ago)",
+      "agentName": ""
     },
     {
       "id": "23544479",
@@ -578,7 +646,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-721-jurong-west-avenue-5-23544479",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/23544479/UPHO.142284275.V800/721-Jurong-West-Avenue-5-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "16 min (1.31 km) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (6m ago)",
+      "postedDate": "Listed on Jun 28, 2026 (2h ago)",
       "agentName": "Don Pan"
     },
     {
@@ -595,7 +663,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-986a-jurong-west-street-93-25433579",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25433579/UPHO.152602155.V800/986A-Jurong-West-Street-93-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "3 min (260 m) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (2h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
       "agentName": "Kai Ng"
     },
     {
@@ -612,7 +680,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-547-jurong-west-street-42-25222530",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25222530/UPHO.150030169.V800/547-Jurong-West-Street-42-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "1 min (50 m) from JS5 Corporation MRT Station (U/C)",
-      "postedDate": "Listed on Jun 28, 2026 (3h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
       "agentName": "Alfred Cheong"
     },
     {
@@ -629,7 +697,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-723-jurong-west-avenue-5-500185159",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185159/UPHO.160486110.V800/723-Jurong-West-Avenue-5-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "17 min (1.41 km) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (7h ago)",
       "agentName": "Ping Neo"
     },
     {
@@ -646,7 +714,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-723-jurong-west-avenue-5-500185142",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185142/UPHO.160485830.V800/723-Jurong-West-Avenue-5-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "17 min (1.41 km) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (7h ago)",
       "agentName": "Ping Neo"
     },
     {
@@ -663,7 +731,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-950-jurong-west-street-91-500067605",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500067605/UPHO.158774544.V800/950-Jurong-West-Street-91-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "15 min (1.23 km) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (8h ago)",
       "agentName": "Marcus Goh"
     },
     {
@@ -680,7 +748,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-650b-jurong-west-street-61-500185074",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185074/UPHO.160484734.V800/650B-Jurong-West-Street-61-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "3 min (230 m) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (7h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (9h ago)",
       "agentName": "KC Chong"
     },
     {
@@ -697,7 +765,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-854-jurong-west-street-81-500153784",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500153784/UPHO.160049928.V800/854-Jurong-West-Street-81-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "5 min (400 m) from JW1 Gek Poh MRT Station (U/C)",
-      "postedDate": "Listed on Jun 28, 2026 (8h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (10h ago)",
       "agentName": ""
     },
     {
@@ -714,7 +782,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-966-jurong-west-street-93-500151204",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500151204/UPHO.160010456.V800/966-Jurong-West-Street-93-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "10 min (800 m) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (10h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (13h ago)",
       "agentName": "Thng Lisa"
     },
     {
@@ -731,7 +799,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-842-jurong-west-street-81-500089659",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500089659/UPHO.159119233.V800/842-Jurong-West-Street-81-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "13 min (1.08 km) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (10h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (13h ago)",
       "agentName": "Thng Lisa"
     },
     {
@@ -748,7 +816,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-623-jurong-west-street-61-25190793",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25190793/UPHO.149656066.V800/623-Jurong-West-Street-61-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "5 min (430 m) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (14h ago)",
       "agentName": ""
     },
     {
@@ -765,7 +833,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-463-jurong-west-street-41-500114713",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500114713/UPHO.159514149.V800/463-Jurong-West-Street-41-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "14 min (1.16 km) from EW26 Lakeside MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (15h ago)",
       "agentName": ""
     },
     {
@@ -782,7 +850,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-527-jurong-west-street-52-500180676",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500180676/UPHO.160424032.V800/527-Jurong-West-Street-52-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "10 min (850 m) from EW26 Lakeside MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (13h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (16h ago)",
       "agentName": ""
     },
     {
@@ -799,7 +867,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-682b-jurong-west-central-1-24583118",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24583118/UPHO.155881262.V800/682B-Jurong-West-Central-1-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "10 min (850 m) from JS8 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (20h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (22h ago)",
       "agentName": "Mar Inn Chee"
     },
     {
@@ -816,25 +884,8 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-447-jurong-west-street-42-500161948",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500161948/UPHO.160166886.V800/447-Jurong-West-Street-42-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "14 min (1.12 km) from EW26 Lakeside MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (20h ago)",
-      "agentName": "Mar Inn Chee"
-    },
-    {
-      "id": "24079825",
-      "source": "PropertyGuru",
-      "title": "921 Jurong West Street 92",
-      "price": 1500,
-      "bedrooms": 1,
-      "bathrooms": 1,
-      "floorSize": 200,
-      "address": "921 Jurong West Street 92, 921 Jurong West Street 92",
-      "area": "Jurong West",
-      "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-921-jurong-west-street-92-24079825",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24079825/UPHO.160480039.V800/921-Jurong-West-Street-92-Boon-Lay-Jurong-Tuas-Singapore.jpg",
-      "nearestMrt": "19 min (1.58 km) from EW28 Pioneer MRT Station",
       "postedDate": "Listed on Jun 28, 2026 (22h ago)",
-      "agentName": "Sherlyn Wong"
+      "agentName": "Mar Inn Chee"
     },
     {
       "id": "500184746",
@@ -850,7 +901,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-660a-jurong-west-street-64-500184746",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500184746/UPHO.160480101.V800/660A-Jurong-West-Street-64-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "6 min (500 m) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (23h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (1d ago)",
       "agentName": ""
     },
     {
@@ -867,7 +918,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-664a-jurong-west-street-64-500123180",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500123180/UPHO.159739847.V800/664A-Jurong-West-Street-64-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "5 min (370 m) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (23h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (1d ago)",
       "agentName": ""
     },
     {
@@ -1122,7 +1173,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-183a-boon-lay-avenue-24402947",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24402947/UPHO.140630421.V800/183A-Boon-Lay-Avenue-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "12 min (990 m) from JS5 Corporation MRT Station (U/C)",
-      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (14h ago)",
       "agentName": "Apple Chee"
     },
     {
@@ -1139,7 +1190,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-183a-boon-lay-avenue-24402955",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24402955/UPHO.140630403.V800/183A-Boon-Lay-Avenue-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "12 min (990 m) from JS5 Corporation MRT Station (U/C)",
-      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (14h ago)",
       "agentName": "Apple Chee"
     },
     {
@@ -1258,7 +1309,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-200-boon-lay-drive-60024615",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60024615/UPHO.155514266.V800/200-Boon-Lay-Drive-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "9 min (750 m) from EW26 Lakeside MRT Station",
-      "postedDate": "Listed on Jun 21, 2026 (6d ago)",
+      "postedDate": "Listed on Jun 21, 2026 (1w ago)",
       "agentName": "Chen Matthew"
     },
     {
@@ -1398,6 +1449,23 @@
       "agentName": ""
     },
     {
+      "id": "24758413",
+      "source": "PropertyGuru",
+      "title": "217B Boon Lay View",
+      "price": 950,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 120,
+      "address": "217B Boon Lay View, 217B Boon Lay Avenue",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-217b-boon-lay-view-24758413",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24758413/UPHO.144651594.V800/217B-Boon-Lay-View-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "7 min (610 m) from JS5 Corporation MRT Station (U/C)",
+      "postedDate": "Listed on Jun 17, 2026 (1w ago)",
+      "agentName": "Esmond Teo"
+    },
+    {
       "id": "25274421",
       "source": "PropertyGuru",
       "title": "187 Boon Lay Avenue",
@@ -1449,6 +1517,23 @@
       "agentName": "Mindy Wong"
     },
     {
+      "id": "500068925",
+      "source": "PropertyGuru",
+      "title": "268B Boon Lay Drive",
+      "price": 800,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 90,
+      "address": "268B Boon Lay Drive, 268B Boon Lay Drive",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-268b-boon-lay-drive-500068925",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500068925/UPHO.158793707.V800/268B-Boon-Lay-Drive-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "3 min (280 m) from JS6 Jurong West MRT Station (U/C)",
+      "postedDate": "Listed on Jun 07, 2026 (3w ago)",
+      "agentName": "Dominic Tay"
+    },
+    {
       "id": "500085035",
       "source": "PropertyGuru",
       "title": "208 Boon Lay Place",
@@ -1466,6 +1551,40 @@
       "agentName": ""
     },
     {
+      "id": "21033353",
+      "source": "PropertyGuru",
+      "title": "258 Boon Lay Drive",
+      "price": 1000,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "258 Boon Lay Drive, 258 Boon Lay Drive",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-258-boon-lay-drive-21033353",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/21033353/UPHO.139784415.V800/258-Boon-Lay-Drive-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "14 min (1.2 km) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on Jun 05, 2026 (3w ago)",
+      "agentName": "Christon Kang"
+    },
+    {
+      "id": "25582867",
+      "source": "PropertyGuru",
+      "title": "209 Boon Lay Place",
+      "price": 650,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "209 Boon Lay Place, 209 Boon Lay Place",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-209-boon-lay-place-25582867",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25582867/UPHO.160132995.V800/209-Boon-Lay-Place-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "9 min (770 m) from JS5 Corporation MRT Station (U/C)",
+      "postedDate": "Listed on Jun 05, 2026 (3w ago)",
+      "agentName": "Sue Ooi"
+    },
+    {
       "id": "60026759",
       "source": "PropertyGuru",
       "title": "217B Boon Lay View",
@@ -1481,6 +1600,125 @@
       "nearestMrt": "7 min (610 m) from JS5 Corporation MRT Station (U/C)",
       "postedDate": "Listed on Jun 04, 2026 (3w ago)",
       "agentName": ""
+    },
+    {
+      "id": "24628898",
+      "source": "PropertyGuru",
+      "title": "187 Boon Lay Avenue",
+      "price": 2900,
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "floorSize": 635,
+      "address": "187 Boon Lay Avenue, 187 Boon Lay Avenue",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-187-boon-lay-avenue-24628898",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24628898/UPHO.148165143.V800/187-Boon-Lay-Avenue-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "17 min (1.41 km) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on Jun 04, 2026 (3w ago)",
+      "agentName": "Wilson Neo"
+    },
+    {
+      "id": "500161029",
+      "source": "PropertyGuru",
+      "title": "176 Boon Lay Drive",
+      "price": 950,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 950,
+      "address": "176 Boon Lay Drive, 176 Boon Lay Drive",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-176-boon-lay-drive-500161029",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500161029/UPHO.160154175.V800/176-Boon-Lay-Drive-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "11 min (910 m) from JS5 Corporation MRT Station (U/C)",
+      "postedDate": "Listed on Jun 04, 2026 (3w ago)",
+      "agentName": "WEI DENG"
+    },
+    {
+      "id": "60048122",
+      "source": "PropertyGuru",
+      "title": "215 Boon Lay Place",
+      "price": 750,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "215 Boon Lay Place, 215 Boon Lay Place",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-215-boon-lay-place-60048122",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60048122/UPHO.155784196.V800/215-Boon-Lay-Place-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "9 min (770 m) from JS5 Corporation MRT Station (U/C)",
+      "postedDate": "Listed on Jun 03, 2026 (3w ago)",
+      "agentName": "Lilian Huang 黄丽莲"
+    },
+    {
+      "id": "24360798",
+      "source": "PropertyGuru",
+      "title": "85 SOHO @ Boon Lay",
+      "price": 2000,
+      "bedrooms": 0,
+      "bathrooms": 1,
+      "floorSize": 280,
+      "address": "85 SOHO @ Boon Lay, 31 Boon Lay Dr",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-85-soho-boon-lay-24360798",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24360798/UPHO.140154380.V800/85-SOHO-Boon-Lay-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "13 min (1.06 km) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on May 31, 2026 (4w ago)",
+      "agentName": "Lye Ai Ling 赖爱玲"
+    },
+    {
+      "id": "60224172",
+      "source": "PropertyGuru",
+      "title": "215 Boon Lay Place",
+      "price": 650,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "215 Boon Lay Place, 215 Boon Lay Place",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-215-boon-lay-place-60224172",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60224172/UPHO.158199499.V800/215-Boon-Lay-Place-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "9 min (770 m) from JS5 Corporation MRT Station (U/C)",
+      "postedDate": "Listed on May 30, 2026 (4w ago)",
+      "agentName": "Adrian Lee 李俊汶"
+    },
+    {
+      "id": "24325901",
+      "source": "PropertyGuru",
+      "title": "85 SOHO @ Boon Lay",
+      "price": 1800,
+      "bedrooms": 0,
+      "bathrooms": 1,
+      "floorSize": 250,
+      "address": "85 SOHO @ Boon Lay, 31 Boon Lay Dr",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-85-soho-boon-lay-24325901",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24325901/UPHO.140102983.V800/85-SOHO-Boon-Lay-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "13 min (1.06 km) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on May 29, 2026 (1mo ago)",
+      "agentName": "Kelvin Ho"
+    },
+    {
+      "id": "25245385",
+      "source": "PropertyGuru",
+      "title": "Studio suit for NTU Student and Professional In Jurong Boon Lay",
+      "price": 2750,
+      "bedrooms": 0,
+      "bathrooms": 1,
+      "floorSize": 280,
+      "address": "Coliwoo - Boon Lay - Twin Studio, 31 Boon Lay Dr",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-coliwoo-boon-lay-twin-studio-25245385",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25245385/UPHO.155081269.V800/Coliwoo-Boon-Lay-Twin-Studio-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "13 min (1.03 km) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on May 29, 2026 (1mo ago)",
+      "agentName": "Steve Voon"
     },
     {
       "id": "500140103",
@@ -1513,7 +1751,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-coliwoo-boon-lay-near-ntu-co-living-apartment-24331819",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24331819/UPHO.139829135.V800/Coliwoo-Boon-Lay-Near-NTU-Co-Living-Apartment-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "13 min (1.03 km) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 24, 2026 (3d ago)",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
       "agentName": "Ricky Ngo 瑞奇"
     },
     {
@@ -1530,7 +1768,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-coliwoo-boon-lay-near-ntu-co-living-apartment-24331805",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24331805/UPHO.139828894.V800/Coliwoo-Boon-Lay-Near-NTU-Co-Living-Apartment-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "13 min (1.03 km) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 24, 2026 (3d ago)",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
       "agentName": "Ricky Ngo 瑞奇"
     },
     {
@@ -1547,7 +1785,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-coliwoo-boon-lay-near-ntu-co-living-apartment-24178909",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24178909/UPHO.137625546.V800/Coliwoo-Boon-Lay-Near-NTU-Co-Living-Apartment-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "13 min (1.03 km) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 24, 2026 (3d ago)",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
       "agentName": "Ricky Ngo 瑞奇"
     },
     {
@@ -1564,7 +1802,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-coliwoo-boon-lay-near-ntu-co-living-apartment-25404947",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25404947/UPHO.152258364.V800/Coliwoo-Boon-Lay-Near-NTU-Co-Living-Apartment-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "13 min (1.03 km) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 24, 2026 (3d ago)",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
       "agentName": "Ricky Ngo 瑞奇"
     },
     {
@@ -1636,38 +1874,21 @@
       "agentName": "Ricky Ngo 瑞奇"
     },
     {
-      "id": "500126669",
+      "id": "24192461",
       "source": "PropertyGuru",
-      "title": "Affordable Co-Living Serviced Apartment For Ntu Students",
-      "price": 1800,
+      "title": "Coliwoo - Boon Lay ( Suitable For NTU Student ) - Promotion rate!!",
+      "price": 2250,
       "bedrooms": 1,
       "bathrooms": 0,
       "floorSize": 250,
-      "address": "Coliwoo Boon Lay I Affordable Co-Living Serviced Apartment For NTU Students, Master Room",
+      "address": "Coliwoo - Boon Lay ( Near NTU | Co-Living Apartment ), 31 Boon Lay Dr, Singapore 649934",
       "area": "Boon Lay",
       "propertyType": "Condo",
-      "url": "https://www.propertyguru.com.sg/listing/for-rent-coliwoo-boon-lay-i-affordable-co-living-serviced-apartment-for-ntu-students-500126669",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500126669/UPHO.159677305.V800/Coliwoo-Boon-Lay-I-Affordable-Co-Living-Serviced-Apartment-For-NTU-Students-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-coliwoo-boon-lay-near-ntu-co-living-apartment-24192461",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24192461/UPHO.154742219.V800/Coliwoo-Boon-Lay-Near-NTU-Co-Living-Apartment-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "13 min (1.03 km) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on May 29, 2026 (1mo ago)",
-      "agentName": "Eddie Tork 戴先生"
-    },
-    {
-      "id": "500126709",
-      "source": "PropertyGuru",
-      "title": "Most Affordable Fully Equipped Studios For Ntu Students",
-      "price": 1800,
-      "bedrooms": 0,
-      "bathrooms": 1,
-      "floorSize": 300,
-      "address": "Coliwoo Boon Lay I Most Affordable Fully Equipped Studios For NTU Students, Studio",
-      "area": "Boon Lay",
-      "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/for-rent-coliwoo-boon-lay-i-most-affordable-fully-equipped-studios-for-ntu-students-500126709",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500126709/UPHO.159677718.V800/Coliwoo-Boon-Lay-I-Most-Affordable-Fully-Equipped-Studios-For-NTU-Students-Boon-Lay-Jurong-Tuas-Singapore.jpg",
-      "nearestMrt": "13 min (1.03 km) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on May 28, 2026 (1mo ago)",
-      "agentName": "Eddie Tork 戴先生"
+      "postedDate": "Listed on Jun 20, 2026 (1w ago)",
+      "agentName": "Ricky Ngo 瑞奇"
     },
     {
       "id": "500126704",
@@ -1685,6 +1906,40 @@
       "nearestMrt": "13 min (1.03 km) from EW27 Boon Lay MRT Station",
       "postedDate": "Listed on May 28, 2026 (1mo ago)",
       "agentName": "Eddie Tork 戴先生"
+    },
+    {
+      "id": "60072437",
+      "source": "PropertyGuru",
+      "title": "Summerdale",
+      "price": 1480,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "Summerdale, Boon Lay Drive",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-summerdale-60072437",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60072437/UPHO.159733591.V800/Summerdale-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "12 min (980 m) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on Jun 22, 2026 (6d ago)",
+      "agentName": "Wei Leng Tan"
+    },
+    {
+      "id": "60227375",
+      "source": "PropertyGuru",
+      "title": "Summerdale",
+      "price": 2300,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "Summerdale, Boon Lay Drive",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-summerdale-60227375",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60227375/UPHO.158272924.V800/Summerdale-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "12 min (980 m) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on Jun 10, 2026 (2w ago)",
+      "agentName": "Lum Kheng Loon"
     },
     {
       "id": "500116879",
@@ -1717,7 +1972,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-summerdale-500185158",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185158/UPHO.160486142.V800/Summerdale-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "12 min (980 m) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (7h ago)",
       "agentName": "Roy Ezra Koh"
     },
     {
@@ -1772,6 +2027,23 @@
       "agentName": "Bespoke Habitat Pte Ltd"
     },
     {
+      "id": "500185347",
+      "source": "PropertyGuru",
+      "title": "Summerdale",
+      "price": 950,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 80,
+      "address": "Summerdale, 10 Boon Lay Drive",
+      "area": "Boon Lay",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-summerdale-500185347",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185347/UPHO.160488898.V800/Summerdale-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "12 min (980 m) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on Jun 28, 2026 (2h ago)",
+      "agentName": "Ping Neo"
+    },
+    {
       "id": "500128936",
       "source": "PropertyGuru",
       "title": "Summerdale",
@@ -1785,7 +2057,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-summerdale-500128936",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500128936/UPHO.159707682.V800/Summerdale-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "12 min (980 m) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (3h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
       "agentName": "Alfred Cheong"
     },
     {
@@ -1802,7 +2074,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-summerdale-500128933",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500128933/UPHO.159707629.V800/Summerdale-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "12 min (980 m) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (3h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
       "agentName": "Alfred Cheong"
     },
     {
@@ -1974,6 +2246,23 @@
       "nearestMrt": "13 min (1.08 km) from JE2 Tengah Park MRT Station (U/C)",
       "postedDate": "Listed on Jun 10, 2026 (2w ago)",
       "agentName": "Karen Tan"
+    },
+    {
+      "id": "24523315",
+      "source": "PropertyGuru",
+      "title": "620 Jurong West Street 65",
+      "price": 1200,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 200,
+      "address": "620 Jurong West Street 65, 620 Jurong West Street 65",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-620-jurong-west-street-65-24523315",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24523315/UPHO.141991272.V800/620-Jurong-West-Street-65-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "9 min (750 m) from EW28 Pioneer MRT Station",
+      "postedDate": "Listed on Jun 08, 2026 (2w ago)",
+      "agentName": "Parthiban R"
     },
     {
       "id": "500183396",
@@ -2316,23 +2605,6 @@
       "agentName": ""
     },
     {
-      "id": "25404008",
-      "source": "PropertyGuru",
-      "title": "670A Jurong West Street 65",
-      "price": 1200,
-      "bedrooms": 1,
-      "bathrooms": 0,
-      "floorSize": 160,
-      "address": "670A Jurong West Street 65, 670A Jurong West Street 65",
-      "area": "Jurong West",
-      "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-670a-jurong-west-street-65-25404008",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25404008/UPHO.158232887.V800/670A-Jurong-West-Street-65-Boon-Lay-Jurong-Tuas-Singapore.jpg",
-      "nearestMrt": "11 min (930 m) from EW27 Boon Lay MRT Station",
-      "postedDate": "Listed on May 27, 2026 (1mo ago)",
-      "agentName": "Doreen Sea"
-    },
-    {
       "id": "500176908",
       "source": "PropertyGuru",
       "title": "864 Jurong West Street 81",
@@ -2384,21 +2656,21 @@
       "agentName": "Calvin Ng"
     },
     {
-      "id": "22646174",
+      "id": "500076590",
       "source": "PropertyGuru",
-      "title": "816 Jurong West Street 81",
-      "price": 1200,
+      "title": "Westwood Park",
+      "price": 2200,
       "bedrooms": 1,
       "bathrooms": 0,
-      "floorSize": 100,
-      "address": "816 Jurong West Street 81, 816 Jurong West Street 81",
-      "area": "Jurong West",
+      "floorSize": 250,
+      "address": "Westwood Park, 17 Westwood Crescent",
+      "area": "Pioneer",
       "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-816-jurong-west-street-81-22646174",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/22646174/UPHO.118029203.V800/816-Jurong-West-Street-81-Boon-Lay-Jurong-Tuas-Singapore.jpg",
-      "nearestMrt": "14 min (1.2 km) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 21, 2026 (1w ago)",
-      "agentName": "Sally Kam"
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-westwood-park-500076590",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500076590/UPHO.158910994.V800/Westwood-Park-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "8 min (650 m) from JW1 Gek Poh MRT Station (U/C)",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
+      "agentName": "Lynn Tham"
     },
     {
       "id": "25616484",
@@ -2571,6 +2843,23 @@
       "agentName": ""
     },
     {
+      "id": "24743705",
+      "source": "PropertyGuru",
+      "title": "273D Jurong West Avenue 3",
+      "price": 3500,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "floorSize": 914,
+      "address": "273D Jurong West Avenue 3, 273D Jurong West Avenue 3",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-273d-jurong-west-avenue-3-24743705",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24743705/UPHO.159896703.V800/273D-Jurong-West-Avenue-3-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "9 min (790 m) from JS6 Jurong West MRT Station (U/C)",
+      "postedDate": "Listed on Jun 10, 2026 (2w ago)",
+      "agentName": "Lacilia Lau"
+    },
+    {
       "id": "500154054",
       "source": "PropertyGuru",
       "title": "666A Jurong West Street 65",
@@ -2586,23 +2875,6 @@
       "nearestMrt": "8 min (630 m) from EW27 Boon Lay MRT Station",
       "postedDate": "Listed on May 28, 2026 (1mo ago)",
       "agentName": ""
-    },
-    {
-      "id": "60176303",
-      "source": "PropertyGuru",
-      "title": "922 Jurong West Street 92",
-      "price": 1200,
-      "bedrooms": 1,
-      "bathrooms": 0,
-      "floorSize": 120,
-      "address": "922 Jurong West Street 92, 922 Jurong West Street 92",
-      "area": "Jurong West",
-      "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-922-jurong-west-street-92-60176303",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60176303/UPHO.157464869.V800/922-Jurong-West-Street-92-Boon-Lay-Jurong-Tuas-Singapore.jpg",
-      "nearestMrt": "19 min (1.61 km) from EW28 Pioneer MRT Station",
-      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
-      "agentName": "Priscilla Lee"
     },
     {
       "id": "500153701",
@@ -2792,6 +3064,57 @@
       "agentName": "Yammie Ho"
     },
     {
+      "id": "500062928",
+      "source": "PropertyGuru",
+      "title": "Room rental next to Boon lay MRT",
+      "price": 1480,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "The Centris, 65 Jurong West Central 3",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-the-centris-500062928",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500062928/UPHO.160116723.V800/The-Centris-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "1 min (110 m) from JS8 Boon Lay MRT Station",
+      "postedDate": "Listed on Jun 28, 2026 (7h ago)",
+      "agentName": "Rick Yeong  杨祖耀"
+    },
+    {
+      "id": "500126745",
+      "source": "PropertyGuru",
+      "title": "Available Now. Suitable For Student or Professional Moving In by June.",
+      "price": 1400,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 200,
+      "address": "The Centris, 75 Jurong West Central 3",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-the-centris-500126745",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500126745/UPHO.159678130.V800/The-Centris-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "1 min (110 m) from JS8 Boon Lay MRT Station",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
+      "agentName": "Eddie Tork 戴先生"
+    },
+    {
+      "id": "60061669",
+      "source": "PropertyGuru",
+      "title": "662C Jurong West Street 64",
+      "price": 1000,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 120,
+      "address": "662C Jurong West Street 64, 662C Jurong West Street 64",
+      "area": "Jurong West",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-662c-jurong-west-street-64-60061669",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60061669/UPHO.155924506.V800/662C-Jurong-West-Street-64-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "3 min (250 m) from EW27 Boon Lay MRT Station",
+      "postedDate": "Listed on Jun 19, 2026 (1w ago)",
+      "agentName": ""
+    },
+    {
       "id": "25598779",
       "source": "PropertyGuru",
       "title": "Master room for rent at 125a tengah drive next to plantation plaza",
@@ -2803,7 +3126,7 @@
       "area": "Tengah",
       "propertyType": "Room",
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-125a-tengah-drive-25598779",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25598779/UPHO.154723827.V800/125A-Tengah-Drive-Lim-Chu-Kang-Tengah-Singapore.jpg",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25598779/UPHO.154723857.V800/125A-Tengah-Drive-Lim-Chu-Kang-Tengah-Singapore.jpg",
       "nearestMrt": "7 min (590 m) from JE1 Tengah Plantation MRT Station (U/C)",
       "postedDate": "Listed on Jun 25, 2026 (3d ago)",
       "agentName": "Kim Ooi"
@@ -2960,6 +3283,23 @@
       "nearestMrt": "6 min (520 m) from JE1 Tengah Plantation MRT Station (U/C)",
       "postedDate": "Listed on Jun 07, 2026 (3w ago)",
       "agentName": "Xavier Chin"
+    },
+    {
+      "id": "60218376",
+      "source": "PropertyGuru",
+      "title": "229A tengah drive",
+      "price": 780,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "229A tengah drive, Tengah Drive",
+      "area": "Tengah",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-229a-tengah-drive-60218376",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60218376/UPHO.158067952.V800/229A-tengah-drive-Tengah-Drive-Singapore.jpg",
+      "nearestMrt": "11 min (960 m) from JE1 Tengah Plantation MRT Station (U/C)",
+      "postedDate": "Listed on Jun 02, 2026 (3w ago)",
+      "agentName": "Mavis Ho"
     },
     {
       "id": "500158222",
@@ -3166,6 +3506,23 @@
       "agentName": "Parry Tiwari Pradeep"
     },
     {
+      "id": "500063199",
+      "source": "PropertyGuru",
+      "title": "119A Plantation Crescent",
+      "price": 800,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "119A Plantation Crescent, 119A Plantation Crescent",
+      "area": "Tengah",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-119a-plantation-crescent-500063199",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500063199/UPHO.158706785.V800/119A-Plantation-Crescent-119A-Plantation-Crescent-Singapore.jpg",
+      "nearestMrt": "6 min (500 m) from JE1 Tengah Plantation MRT Station (U/C)",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
+      "agentName": "Brittin Wong"
+    },
+    {
       "id": "500137476",
       "source": "PropertyGuru",
       "title": "467C Bukit Batok West Avenue 9",
@@ -3213,7 +3570,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-488c-choa-chu-kang-avenue-5-24495696",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24495696/UPHO.141674357.V800/488C-Choa-Chu-Kang-Avenue-5-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 28, 2026 (8h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (10h ago)",
       "agentName": ""
     },
     {
@@ -3417,7 +3774,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-239-jurong-east-street-21-25492775",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25492775/UPHO.153318560.V800/239-Jurong-East-Street-21-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "14 min (1.15 km) from EW25 Chinese Garden MRT Station",
-      "postedDate": "Listed on Jun 27, 2026 (1d ago)",
+      "postedDate": "Listed on Jun 27, 2026 (2d ago)",
       "agentName": "Ian Neo"
     },
     {
@@ -3468,7 +3825,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-309-jurong-east-street-32-500180841",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500180841/UPHO.160426022.V800/309-Jurong-East-Street-32-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "13 min (1.1 km) from EW25 Chinese Garden MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (9h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
       "agentName": "Lin Jing Sophia"
     },
     {
@@ -3485,7 +3842,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-239-jurong-east-street-21-60203133",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60203133/UPHO.157702999.V800/239-Jurong-East-Street-21-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "14 min (1.15 km) from EW25 Chinese Garden MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (11h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (14h ago)",
       "agentName": "Evelin Ang"
     },
     {
@@ -3553,7 +3910,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-317-jurong-east-street-31-24654362",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24654362/UPHO.143456307.V800/317-Jurong-East-Street-31-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "9 min (710 m) from EW25 Chinese Garden MRT Station",
-      "postedDate": "Listed on Jun 26, 2026 (1d ago)",
+      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
       "agentName": "Anita Koh"
     },
     {
@@ -3706,7 +4063,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-208-jurong-east-street-21-500184974",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500184974/UPHO.160483308.V800/208-Jurong-East-Street-21-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "13 min (1.06 km) from NS1 Jurong East MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (9h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
       "agentName": "David Tan"
     },
     {
@@ -3725,6 +4082,23 @@
       "nearestMrt": "13 min (1.07 km) from JE5 Jurong East MRT Station",
       "postedDate": "Listed on Jun 27, 2026 (1d ago)",
       "agentName": "Yvonne Lau Jun Li"
+    },
+    {
+      "id": "500183093",
+      "source": "PropertyGuru",
+      "title": "114 Jurong East Street 13",
+      "price": 1300,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 110,
+      "address": "114 Jurong East Street 13, 114 Jurong East Street 13",
+      "area": "Jurong East",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-114-jurong-east-street-13-500183093",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500183093/UPHO.160458100.V800/114-Jurong-East-Street-13-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "8 min (630 m) from EW25 Chinese Garden MRT Station",
+      "postedDate": "Listed on Jun 27, 2026 (1d ago)",
+      "agentName": "Tan Chee Hwang"
     },
     {
       "id": "60011896",
@@ -3978,8 +4352,25 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-219a-jurong-east-street-21-21804840",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/21804840/UPHO.160424794.V800/219A-Jurong-East-Street-21-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "8 min (650 m) from EW25 Chinese Garden MRT Station",
-      "postedDate": "Listed on Jun 23, 2026 (4d ago)",
+      "postedDate": "Listed on Jun 23, 2026 (5d ago)",
       "agentName": "Frankie Teo (张文仁)"
+    },
+    {
+      "id": "500180428",
+      "source": "PropertyGuru",
+      "title": "211 Jurong East Street 21",
+      "price": 1600,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 183,
+      "address": "211 Jurong East Street 21, 211 Jurong East Street 21",
+      "area": "Jurong East",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-211-jurong-east-street-21-500180428",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500180428/UPHO.160420850.V800/211-Jurong-East-Street-21-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "14 min (1.13 km) from EW25 Chinese Garden MRT Station",
+      "postedDate": "Listed on Jun 23, 2026 (5d ago)",
+      "agentName": "Jeric Ho"
     },
     {
       "id": "500179360",
@@ -4220,6 +4611,23 @@
       "agentName": "Monuahara Begum"
     },
     {
+      "id": "60118202",
+      "source": "PropertyGuru",
+      "title": "336 Jurong East Avenue 1",
+      "price": 1500,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "336 Jurong East Avenue 1, 336 Jurong East Avenue 1",
+      "area": "Jurong East",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-336-jurong-east-avenue-1-60118202",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60118202/UPHO.156575776.V800/336-Jurong-East-Avenue-1-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "14 min (1.18 km) from EW25 Chinese Garden MRT Station",
+      "postedDate": "Listed on Jun 16, 2026 (1w ago)",
+      "agentName": "Adrian Lee 李俊汶"
+    },
+    {
       "id": "500171007",
       "source": "PropertyGuru",
       "title": "211 Jurong East Street 21",
@@ -4441,6 +4849,23 @@
       "agentName": "Firdaus Aziz"
     },
     {
+      "id": "500110960",
+      "source": "PropertyGuru",
+      "title": "330 Jurong East Avenue 1",
+      "price": 1000,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "330 Jurong East Avenue 1, 330 Jurong East Avenue 1",
+      "area": "Jurong East",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-330-jurong-east-avenue-1-500110960",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500110960/UPHO.159454791.V800/330-Jurong-East-Avenue-1-Boon-Lay-Jurong-Tuas-Singapore.jpg",
+      "nearestMrt": "14 min (1.2 km) from EW25 Chinese Garden MRT Station",
+      "postedDate": "Listed on Jun 09, 2026 (2w ago)",
+      "agentName": "Weiting Bek"
+    },
+    {
       "id": "24944327",
       "source": "PropertyGuru",
       "title": "Clementi Green",
@@ -4488,7 +4913,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-clementi-road-nus-24578579",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24578579/UPHO.155501321.V800/Clementi-Road-NUS-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 22, 2026 (6d ago)",
+      "postedDate": "Listed on Jun 22, 2026 (1w ago)",
       "agentName": "Jacquelyn Sam"
     },
     {
@@ -4522,7 +4947,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-209b-clementi-avenue-6-25338846",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25338846/UPHO.151447086.V800/209B-Clementi-avenue-6-Singapore.jpg",
       "nearestMrt": "11 min (950 m) from CR17 Clementi MRT Station",
-      "postedDate": "Listed on Jun 24, 2026 (3d ago)",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
       "agentName": ""
     },
     {
@@ -4543,6 +4968,23 @@
       "agentName": "Patrick Kuah"
     },
     {
+      "id": "500183856",
+      "source": "PropertyGuru",
+      "title": "428 Clementi Avenue 3",
+      "price": 1350,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "428 Clementi Avenue 3, 428 Clementi Avenue 3",
+      "area": "Clementi",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-428-clementi-avenue-3-500183856",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500183856/UPHO.160488954.V800/428-Clementi-Avenue-3-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
+      "nearestMrt": "8 min (630 m) from EW23 Clementi MRT Station",
+      "postedDate": "Listed on Jun 29, 2026 (1h ago)",
+      "agentName": ""
+    },
+    {
       "id": "500164200",
       "source": "PropertyGuru",
       "title": "Common rooms immediate move in",
@@ -4556,7 +4998,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-356-clementi-avenue-2-500164200",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500164200/UPHO.160197027.V800/356-Clementi-Avenue-2-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
       "nearestMrt": "9 min (780 m) from EW23 Clementi MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (8h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (11h ago)",
       "agentName": "KelvinS See"
     },
     {
@@ -4594,21 +5036,21 @@
       "agentName": "Eileen Lim"
     },
     {
-      "id": "500143146",
+      "id": "23038082",
       "source": "PropertyGuru",
-      "title": "362 Clementi Avenue 2",
-      "price": 3500,
-      "bedrooms": 2,
-      "bathrooms": 2,
-      "floorSize": 807,
-      "address": "362 Clementi Avenue 2, 362 Clementi Avenue 2",
+      "title": "Call now to enquire",
+      "price": 1500,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 107,
+      "address": "441B Clementi Avenue 3, 441B Clementi Avenue 3",
       "area": "Clementi",
       "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-362-clementi-avenue-2-500143146",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500143146/UPHO.159909564.V800/362-Clementi-Avenue-2-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
-      "nearestMrt": "9 min (750 m) from EW23 Clementi MRT Station",
-      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
-      "agentName": "Lynn Yu"
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-441b-clementi-avenue-3-23038082",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/23038082/UPHO.154752204.V800/441B-Clementi-Avenue-3-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
+      "nearestMrt": "2 min (210 m) from EW23 Clementi MRT Station",
+      "postedDate": "Listed on Jun 22, 2026 (6d ago)",
+      "agentName": "Grace Chan"
     },
     {
       "id": "22566476",
@@ -4743,7 +5185,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-345-clementi-avenue-5-23557695",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/23557695/UPHO.129602264.V800/345-Clementi-Avenue-5-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
       "nearestMrt": "7 min (550 m) from EW23 Clementi MRT Station",
-      "postedDate": "Listed on Jun 01, 2026 (3w ago)",
+      "postedDate": "Listed on Jun 01, 2026 (4w ago)",
       "agentName": "May Chong 張雲"
     },
     {
@@ -4760,7 +5202,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-307-clementi-avenue-4-500185133",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185133/UPHO.160485657.V800/307-Clementi-Avenue-4-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
       "nearestMrt": "9 min (770 m) from EW23 Clementi MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (5h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (8h ago)",
       "agentName": ""
     },
     {
@@ -5223,6 +5665,23 @@
       "agentName": "Angela Tan"
     },
     {
+      "id": "24612754",
+      "source": "PropertyGuru",
+      "title": "303 Clementi Avenue 4",
+      "price": 1400,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "303 Clementi Avenue 4, 303 Clementi Avenue 4",
+      "area": "Clementi",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-303-clementi-avenue-4-24612754",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24612754/UPHO.142969368.V800/303-Clementi-Avenue-4-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
+      "nearestMrt": "11 min (940 m) from EW23 Clementi MRT Station",
+      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
+      "agentName": "Reginald Lim 林家斈"
+    },
+    {
       "id": "25517604",
       "source": "PropertyGuru",
       "title": "340 Clementi Avenue 5",
@@ -5427,6 +5886,23 @@
       "agentName": ""
     },
     {
+      "id": "24565548",
+      "source": "PropertyGuru",
+      "title": "429 Clementi Avenue 3",
+      "price": 850,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 200,
+      "address": "429 Clementi Avenue 3, 429 Clementi Avenue 3",
+      "area": "Clementi",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-429-clementi-avenue-3-24565548",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24565548/UPHO.147352901.V800/429-Clementi-Avenue-3-Buona-Vista-West-Coast-Clementi-New-Town-Singapore.jpg",
+      "nearestMrt": "9 min (760 m) from EW23 Clementi MRT Station",
+      "postedDate": "Listed on Jun 21, 2026 (1w ago)",
+      "agentName": "Amy Tay"
+    },
+    {
       "id": "25173710",
       "source": "PropertyGuru",
       "title": "371 Clementi Avenue 4",
@@ -5508,7 +5984,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-226-bukit-batok-central-500160653",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500160653/UPHO.160466729.V800/226-Bukit-Batok-Central-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "7 min (570 m) from NS2 Bukit Batok MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (40m ago)",
+      "postedDate": "Listed on Jun 28, 2026 (3h ago)",
       "agentName": "Nix Deng"
     },
     {
@@ -5559,7 +6035,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-228-bukit-batok-central-500168506",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500168506/UPHO.160256862.V800/228-Bukit-Batok-Central-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "8 min (640 m) from NS2 Bukit Batok MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (11m ago)",
+      "postedDate": "Listed on Jun 28, 2026 (2h ago)",
       "agentName": "Yen Ling"
     },
     {
@@ -5729,7 +6205,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-374-bukit-batok-street-31-25635390",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25635390/UPHO.155121934.V800/374-Bukit-Batok-Street-31-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "3 min (260 m) from NS3 Bukit Gombak MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (4h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (7h ago)",
       "agentName": "Rick Yeong  杨祖耀"
     },
     {
@@ -5763,7 +6239,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-539-bukit-batok-street-52-500113992",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500113992/UPHO.159504385.V800/539-Bukit-Batok-Street-52-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "8 min (670 m) from NS3 Bukit Gombak MRT Station",
-      "postedDate": "Listed on Jun 27, 2026 (1d ago)",
+      "postedDate": "Listed on Jun 27, 2026 (2d ago)",
       "agentName": ""
     },
     {
@@ -5899,7 +6375,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-215-bukit-batok-street-21-500165589",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500165589/UPHO.160216899.V800/215-Bukit-Batok-Street-21-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "8 min (700 m) from NS2 Bukit Batok MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (10h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (13h ago)",
       "agentName": "Muhammed Ayub"
     },
     {
@@ -5916,7 +6392,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-290e-bukit-batok-street-24-500158000",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500158000/UPHO.160111158.V800/290E-Bukit-Batok-Street-24-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 28, 2026 (13h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (15h ago)",
       "agentName": "Cheng Chooi Deep"
     },
     {
@@ -5933,7 +6409,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-329-bukit-batok-street-33-24494784",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24494784/UPHO.141663880.V800/329-Bukit-Batok-Street-33-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "12 min (1.04 km) from NS3 Bukit Gombak MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (14h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (17h ago)",
       "agentName": "Amanda Ng"
     },
     {
@@ -5950,7 +6426,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-307-bukit-batok-street-31-500070508",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500070508/UPHO.158816522.V800/307-Bukit-Batok-Street-31-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "6 min (530 m) from NS3 Bukit Gombak MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (17h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (20h ago)",
       "agentName": "Ina Sultan"
     },
     {
@@ -6071,6 +6547,23 @@
       "nearestMrt": "12 min (980 m) from NS3 Bukit Gombak MRT Station",
       "postedDate": "Listed on Jun 26, 2026 (2d ago)",
       "agentName": "Masilamani Kumara Velu"
+    },
+    {
+      "id": "25349892",
+      "source": "PropertyGuru",
+      "title": "356 Bukit Batok Street 31",
+      "price": 900,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "356 Bukit Batok Street 31, 356 Bukit Batok Street 31",
+      "area": "Bukit Batok",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-356-bukit-batok-street-31-25349892",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25349892/UPHO.160458231.V800/356-Bukit-Batok-Street-31-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "4 min (350 m) from NS3 Bukit Gombak MRT Station",
+      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
+      "agentName": "Jeffrey Lee"
     },
     {
       "id": "500164721",
@@ -6307,7 +6800,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-208-bukit-batok-street-21-500178629",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500178629/UPHO.160397164.V800/208-Bukit-Batok-Street-21-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "7 min (560 m) from NS2 Bukit Batok MRT Station",
-      "postedDate": "Listed on Jun 21, 2026 (6d ago)",
+      "postedDate": "Listed on Jun 21, 2026 (1w ago)",
       "agentName": ""
     },
     {
@@ -6630,7 +7123,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-212-choa-chu-kang-central-25608165",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25608165/UPHO.154770489.V800/212-Choa-Chu-Kang-Central-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
+      "postedDate": "Listed on Jun 26, 2026 (3d ago)",
       "agentName": "Louis Ang 洪家豪"
     },
     {
@@ -6838,6 +7331,23 @@
       "agentName": "Alvin Lim"
     },
     {
+      "id": "500185385",
+      "source": "PropertyGuru",
+      "title": "223 Choa Chu Kang Central",
+      "price": 850,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "223 Choa Chu Kang Central, 223 Choa Chu Kang Central",
+      "area": "Choa Chu Kang",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-223-choa-chu-kang-central-500185385",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185385/UPHO.160489465.V800/223-Choa-Chu-Kang-Central-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "",
+      "postedDate": "Listed on Jun 29, 2026 (1h ago)",
+      "agentName": ""
+    },
+    {
       "id": "25531440",
       "source": "PropertyGuru",
       "title": "689A Choa Chu Kang Drive",
@@ -6851,7 +7361,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-689a-choa-chu-kang-drive-25531440",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/25531440/UPHO.153800868.V800/689A-Choa-Chu-Kang-Drive-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "9 min (780 m) from NS5 Yew Tee MRT Station",
-      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (14h ago)",
       "agentName": "Kelvin Leong"
     },
     {
@@ -6902,7 +7412,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-237-choa-chu-kang-central-20343516",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/20343516/UPHO.79292202.V800/237-Choa-Chu-Kang-Central-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 26, 2026 (1d ago)",
+      "postedDate": "Listed on Jun 26, 2026 (2d ago)",
       "agentName": ""
     },
     {
@@ -7055,7 +7565,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-656-choa-chu-kang-crescent-500180766",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500180766/UPHO.160425212.V800/656-Choa-Chu-Kang-Crescent-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "7 min (600 m) from NS5 Yew Tee MRT Station",
-      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
+      "postedDate": "Listed on Jun 24, 2026 (5d ago)",
       "agentName": "Elaine Goi"
     },
     {
@@ -7142,6 +7652,23 @@
       "nearestMrt": "12 min (1.01 km) from NS5 Yew Tee MRT Station",
       "postedDate": "Listed on Jun 22, 2026 (6d ago)",
       "agentName": ""
+    },
+    {
+      "id": "500108826",
+      "source": "PropertyGuru",
+      "title": "234 Choa Chu Kang Central",
+      "price": 900,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "234 Choa Chu Kang Central, 234 Choa Chu Kang Central",
+      "area": "Choa Chu Kang",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-234-choa-chu-kang-central-500108826",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500108826/UPHO.159421407.V800/234-Choa-Chu-Kang-Central-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "",
+      "postedDate": "Listed on Jun 21, 2026 (1w ago)",
+      "agentName": "Jake Chu"
     },
     {
       "id": "60050879",
@@ -7312,6 +7839,23 @@
       "nearestMrt": "11 min (950 m) from NS5 Yew Tee MRT Station",
       "postedDate": "Listed on Jun 17, 2026 (1w ago)",
       "agentName": "Sheevonne Lau"
+    },
+    {
+      "id": "23981737",
+      "source": "PropertyGuru",
+      "title": "657 Choa Chu Kang Crescent",
+      "price": 800,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 130,
+      "address": "657 Choa Chu Kang Crescent, 657 Choa Chu Kang Crescent",
+      "area": "Choa Chu Kang",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-657-choa-chu-kang-crescent-23981737",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/23981737/UPHO.153411135.V800/657-Choa-Chu-Kang-Crescent-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "6 min (530 m) from NS5 Yew Tee MRT Station",
+      "postedDate": "Listed on Jun 12, 2026 (2w ago)",
+      "agentName": "Mark Ho"
     },
     {
       "id": "25523861",
@@ -7565,7 +8109,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-539-bukit-panjang-ring-road-60067987",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60067987/UPHO.156900341.V800/539-Bukit-Panjang-Ring-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 28, 2026 (10h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
       "agentName": "Alan Huy"
     },
     {
@@ -7582,7 +8126,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-240-bukit-panjang-ring-road-500180450",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500180450/UPHO.160421179.V800/240-Bukit-Panjang-Ring-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 28, 2026 (13h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (15h ago)",
       "agentName": "Alex Lim"
     },
     {
@@ -7599,7 +8143,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-244-bukit-panjang-ring-road-500160090",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500160090/UPHO.160141045.V800/244-Bukit-Panjang-Ring-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 28, 2026 (14h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (16h ago)",
       "agentName": "Melvin Ng"
     },
     {
@@ -7858,6 +8402,23 @@
       "agentName": "Fan Mong Kong"
     },
     {
+      "id": "500139881",
+      "source": "PropertyGuru",
+      "title": "Cashew MRT Condo",
+      "price": 1100,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 75,
+      "address": "Hazel Park Condo, 15 Hazel Park Condo",
+      "area": "Bukit Panjang",
+      "propertyType": "Condo",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-hazel-park-condo-500139881",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500139881/UPHO.159854446.V800/Hazel-Park-Condo-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "3 min (280 m) from DT2 Cashew MRT Station",
+      "postedDate": "Listed on Jun 20, 2026 (1w ago)",
+      "agentName": "Albert Yang"
+    },
+    {
       "id": "500171732",
       "source": "PropertyGuru",
       "title": "468 Segar Road",
@@ -7873,23 +8434,6 @@
       "nearestMrt": "",
       "postedDate": "Listed on Jun 14, 2026 (2w ago)",
       "agentName": ""
-    },
-    {
-      "id": "22642251",
-      "source": "PropertyGuru",
-      "title": "125 Pending Road",
-      "price": 2750,
-      "bedrooms": 2,
-      "bathrooms": 2,
-      "floorSize": 785,
-      "address": "125 Pending Road, 125 Pending Road",
-      "area": "Bukit Panjang",
-      "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-125-pending-road-22642251",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/22642251/UPHO.117987163.V800/125-Pending-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
-      "nearestMrt": "",
-      "postedDate": "Listed on Jun 03, 2026 (3w ago)",
-      "agentName": "M. Selva"
     },
     {
       "id": "500176779",
@@ -7956,7 +8500,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-175c-corporation-tiara-500043575",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500043575/UPHO.158409145.V800/175C-Corporation-Tiara-Boon-Lay-Jurong-Tuas-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 25, 2026 (3d ago)",
+      "postedDate": "Listed on Jun 25, 2026 (4d ago)",
       "agentName": "Taufik Hussein"
     },
     {
@@ -8007,7 +8551,7 @@
       "url": "https://www.propertyguru.com.sg/listing/for-rent-sol-acres-500185157",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500185157/UPHO.160486173.V800/Sol-Acres-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 28, 2026 (3h ago)",
+      "postedDate": "Listed on Jun 28, 2026 (6h ago)",
       "agentName": "Don Cheng"
     },
     {
@@ -8041,7 +8585,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-154-jalan-teck-whye-60217804",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60217804/UPHO.158080808.V800/154-Jalan-Teck-Whye-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 21, 2026 (6d ago)",
+      "postedDate": "Listed on Jun 21, 2026 (1w ago)",
       "agentName": "Anni Tan"
     },
     {
@@ -8062,6 +8606,23 @@
       "agentName": "Baven Tan"
     },
     {
+      "id": "60093505",
+      "source": "PropertyGuru",
+      "title": "115 Pending Road",
+      "price": 1200,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 120,
+      "address": "115 Pending Road, 115 Pending Road",
+      "area": "Bukit Panjang",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-115-pending-road-60093505",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/60093505/UPHO.156287913.V800/115-Pending-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "",
+      "postedDate": "Listed on Jun 06, 2026 (3w ago)",
+      "agentName": "Brigitte Tan 郑滢薇"
+    },
+    {
       "id": "25594453",
       "source": "PropertyGuru",
       "title": "Eco Sanctuary",
@@ -8077,6 +8638,23 @@
       "nearestMrt": "",
       "postedDate": "Listed on Jun 09, 2026 (2w ago)",
       "agentName": ""
+    },
+    {
+      "id": "500154122",
+      "source": "PropertyGuru",
+      "title": "163 Gangsa Road",
+      "price": 1400,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 120,
+      "address": "163 Gangsa Road, 163 Gangsa Road",
+      "area": "Bukit Panjang",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-163-gangsa-road-500154122",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500154122/UPHO.160169664.V800/163-Gangsa-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "",
+      "postedDate": "Listed on Jun 05, 2026 (3w ago)",
+      "agentName": "Wade Koh"
     },
     {
       "id": "25153273",
@@ -8111,23 +8689,6 @@
       "nearestMrt": "",
       "postedDate": "Listed on May 30, 2026 (4w ago)",
       "agentName": ""
-    },
-    {
-      "id": "500181547",
-      "source": "PropertyGuru",
-      "title": "8 Teck Whye Avenue",
-      "price": 750,
-      "bedrooms": 1,
-      "bathrooms": 0,
-      "floorSize": 100,
-      "address": "8 Teck Whye Avenue, 8 Teck Whye Avenue",
-      "area": "Bukit Panjang",
-      "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-8-teck-whye-avenue-500181547",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500181547/UPHO.160436114.V800/8-Teck-Whye-Avenue-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
-      "nearestMrt": "",
-      "postedDate": "Listed on Jun 24, 2026 (4d ago)",
-      "agentName": "Clare Wong"
     },
     {
       "id": "21657807",
@@ -8177,7 +8738,7 @@
       "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-525-jelapang-road-500171832",
       "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500171832/UPHO.160303083.V800/525-Jelapang-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
       "nearestMrt": "",
-      "postedDate": "Listed on Jun 22, 2026 (5d ago)",
+      "postedDate": "Listed on Jun 22, 2026 (6d ago)",
       "agentName": "Larry Lee"
     },
     {
@@ -8300,6 +8861,40 @@
       "agentName": "Alyssa Koh L X"
     },
     {
+      "id": "500174688",
+      "source": "PropertyGuru",
+      "title": "Common Room for rent at Maysprings, Near to Bukit Panjang MRT",
+      "price": 1300,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 120,
+      "address": "Maysprings, 2 Petir Road",
+      "area": "Bukit Panjang",
+      "propertyType": "Room",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-maysprings-500174688",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500174688/UPHO.160342658.V800/Maysprings-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "",
+      "postedDate": "Listed on Jun 17, 2026 (1w ago)",
+      "agentName": "Steven Choo"
+    },
+    {
+      "id": "500134401",
+      "source": "PropertyGuru",
+      "title": "Rental Condominium at 61, Choa Chu Kang Loop, Singapore",
+      "price": 1300,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "Northvale, 61 Choa Chu Kang Loop",
+      "area": "Choa Chu Kang",
+      "propertyType": "Condo",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-northvale-500134401",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500134401/UPHO.159782988.V800/Northvale-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "6 min (460 m) from JS1 Choa Chu Kang MRT Station",
+      "postedDate": "Listed on Jun 15, 2026 (1w ago)",
+      "agentName": "David Sim"
+    },
+    {
       "id": "25386888",
       "source": "PropertyGuru",
       "title": "636A Senja Parc View",
@@ -8315,40 +8910,6 @@
       "nearestMrt": "",
       "postedDate": "Listed on Jun 11, 2026 (2w ago)",
       "agentName": ""
-    },
-    {
-      "id": "24268772",
-      "source": "PropertyGuru",
-      "title": "High Floor Spacious 4 Room Unit For Rental",
-      "price": 3500,
-      "bedrooms": 3,
-      "bathrooms": 2,
-      "floorSize": 1098,
-      "address": "505 Jelapang Road, 505 Jelapang Road",
-      "area": "Bukit Panjang",
-      "propertyType": "HDB",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-505-jelapang-road-24268772",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/24268772/UPHO.153827148.V800/505-Jelapang-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
-      "nearestMrt": "",
-      "postedDate": "Listed on Jun 28, 2026 (12h ago)",
-      "agentName": "Roy Low"
-    },
-    {
-      "id": "500177561",
-      "source": "PropertyGuru",
-      "title": "Spacious HDB Common Room Rental at 402, Fajar Road, Singapore",
-      "price": 900,
-      "bedrooms": 1,
-      "bathrooms": 0,
-      "floorSize": 120,
-      "address": "402 Fajar Road, 402 Fajar Road",
-      "area": "Bukit Panjang",
-      "propertyType": "Room",
-      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-402-fajar-road-500177561",
-      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500177561/UPHO.160382212.V800/402-Fajar-Road-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
-      "nearestMrt": "",
-      "postedDate": "Listed on Jun 27, 2026 (1d ago)",
-      "agentName": "Gabriel Wu"
     },
     {
       "id": "24037083",
@@ -8468,6 +9029,40 @@
       "nearestMrt": "",
       "postedDate": "Listed on Jun 03, 2026 (3w ago)",
       "agentName": "CY Chan"
+    },
+    {
+      "id": "500139721",
+      "source": "PropertyGuru",
+      "title": "Multiple Common rooms at Cashew heights",
+      "price": 1400,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 150,
+      "address": "Cashew Heights, 85 Cashew Road",
+      "area": "Bukit Panjang",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/for-rent-cashew-heights-500139721",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500139721/UPHO.160336002.V800/Cashew-Heights-Dairy-Farm-Bukit-Panjang-Choa-Chu-Kang-Singapore.jpg",
+      "nearestMrt": "6 min (500 m) from DT2 Cashew MRT Station",
+      "postedDate": "Listed on Jun 17, 2026 (1w ago)",
+      "agentName": "Gupta Sameer Raj"
+    },
+    {
+      "id": "500158442",
+      "source": "PropertyGuru",
+      "title": "Newly Renovated Unit! Common Bedroom Near Amenities for Rent!!",
+      "price": 900,
+      "bedrooms": 1,
+      "bathrooms": 0,
+      "floorSize": 100,
+      "address": "221B Tengah garden walk, Common Room",
+      "area": "Tengah",
+      "propertyType": "HDB",
+      "url": "https://www.propertyguru.com.sg/listing/hdb-for-rent-221b-tengah-garden-walk-500158442",
+      "imageUrl": "https://sg1-cdn.pgimgs.com/listing/500158442/UPHO.160117687.V800/221B-Tengah-garden-walk-Singapore.jpg",
+      "nearestMrt": "8 min (620 m) from JS4 Hong Kah MRT Station (U/C)",
+      "postedDate": "Listed on Jun 13, 2026 (2w ago)",
+      "agentName": "Louis Ang 洪家豪"
     },
     {
       "id": "60119987",
