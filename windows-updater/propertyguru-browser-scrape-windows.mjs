@@ -21,10 +21,12 @@ const STORAGE_STATE = path.join(DATA_DIR, 'propertyguru-storage-state.json');
 const PROFILE_DIR = path.join(DATA_DIR, 'propertyguru-profile');
 const USER_AGENT = process.env.SCRAPER_USER_AGENT ||
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
-const PROPERTYGURU_MAX_PAGES_PER_SEARCH = Math.max(1, Number(process.env.PROPERTYGURU_MAX_PAGES_PER_SEARCH || 5));
+const PROPERTYGURU_MAX_PAGES_PER_SEARCH = Math.max(1, Number(process.env.PROPERTYGURU_MAX_PAGES_PER_SEARCH || 2));
 const AUTO_TIMEOUT_MS = Math.max(10, Number(process.env.PG_AUTO_TIMEOUT_SECONDS || 120)) * 1000;
 const MANUAL_TIMEOUT_MS = Math.max(30, Number(process.env.PG_MANUAL_TIMEOUT_SECONDS || 900)) * 1000;
 const CHECK_INTERVAL_MS = 2500;
+const PAGE_COOLDOWN_MS = Math.max(0, Number(process.env.PG_PAGE_COOLDOWN_MS || 12000));
+const CHALLENGE_COOLDOWN_MS = Math.max(0, Number(process.env.PG_CHALLENGE_COOLDOWN_MS || 45000));
 
 const PROPERTYGURU_SEARCH_AREAS = [
   'Jurong West',
@@ -40,6 +42,15 @@ const PROPERTYGURU_SEARCH_AREAS = [
 
 function log(message) {
   console.log(`[windows-propertyguru-scrape] ${message}`);
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function jitter(baseMs, ratio = 0.35) {
+  const spread = Math.round(baseMs * ratio);
+  return Math.max(0, baseMs - spread + Math.floor(Math.random() * (spread * 2 + 1)));
 }
 
 function buildSearchPlan() {
@@ -199,6 +210,12 @@ async function tryClickVerification(page) {
 }
 
 async function ensureVerifiedAtUrl(page, url, label) {
+  if (PAGE_COOLDOWN_MS > 0) {
+    const waitMs = jitter(PAGE_COOLDOWN_MS);
+    log(`Cooling down ${Math.round(waitMs / 1000)}s before ${label}...`);
+    await delay(waitMs);
+  }
+
   log(`Opening ${label}: ${url}`);
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(error => {
     log(`Navigation warning for ${label}: ${error.message}`);
@@ -215,6 +232,14 @@ async function ensureVerifiedAtUrl(page, url, label) {
     await page.waitForTimeout(CHECK_INTERVAL_MS);
   }
 
+  if (CHALLENGE_COOLDOWN_MS > 0) {
+    const waitMs = jitter(CHALLENGE_COOLDOWN_MS, 0.2);
+    log(`Challenge detected for ${label}. Cooling down ${Math.round(waitMs / 1000)}s before manual fallback...`);
+    await delay(waitMs);
+    lastInspection = await inspectPage(page);
+    if (!lastInspection.blocked && lastInspection.hasSignals) return lastInspection;
+  }
+
   log(`Manual fallback for ${label}. Complete verification in THIS visible browser window; scraping will continue in the same tab.`);
   const manualDeadline = Date.now() + MANUAL_TIMEOUT_MS;
   while (Date.now() < manualDeadline) {
@@ -229,12 +254,14 @@ async function ensureVerifiedAtUrl(page, url, label) {
 }
 
 async function scrollSearchPage(page) {
-  for (let i = 0; i < 10; i++) {
-    await page.mouse.wheel(0, 650).catch(() => {});
-    await page.waitForTimeout(250).catch(() => {});
+  const steps = 5 + Math.floor(Math.random() * 5);
+  for (let i = 0; i < steps; i++) {
+    await page.mouse.wheel(0, 280 + Math.floor(Math.random() * 380)).catch(() => {});
+    await page.waitForTimeout(650 + Math.floor(Math.random() * 850)).catch(() => {});
   }
+  await page.waitForTimeout(1800 + Math.floor(Math.random() * 2200)).catch(() => {});
   await page.evaluate(() => window.scrollTo(0, 0)).catch(() => {});
-  await page.waitForTimeout(800).catch(() => {});
+  await page.waitForTimeout(1200 + Math.floor(Math.random() * 1600)).catch(() => {});
 }
 
 async function extractListingsFromCurrentPage(page) {
@@ -414,6 +441,8 @@ async function main() {
 
     const page = context.pages()[0] || await context.newPage();
     const searchPlan = buildSearchPlan();
+    log(`Search plan: ${searchPlan.length} pages, ${PROPERTYGURU_MAX_PAGES_PER_SEARCH} page(s) per area. Set PROPERTYGURU_MAX_PAGES_PER_SEARCH to change this.`);
+    log(`Pacing: PG_PAGE_COOLDOWN_MS=${PAGE_COOLDOWN_MS}, PG_CHALLENGE_COOLDOWN_MS=${CHALLENGE_COOLDOWN_MS}.`);
     const allListings = [];
     const seenIds = new Set();
     const stoppedAreas = new Set();
