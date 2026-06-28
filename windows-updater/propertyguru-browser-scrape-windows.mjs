@@ -21,12 +21,12 @@ const STORAGE_STATE = path.join(DATA_DIR, 'propertyguru-storage-state.json');
 const PROFILE_DIR = path.join(DATA_DIR, 'propertyguru-profile');
 const USER_AGENT = process.env.SCRAPER_USER_AGENT ||
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
-const PROPERTYGURU_MAX_PAGES_PER_SEARCH = Math.max(1, Number(process.env.PROPERTYGURU_MAX_PAGES_PER_SEARCH || 2));
+const PROPERTYGURU_MAX_PAGES_PER_SEARCH = Math.max(1, Number(process.env.PROPERTYGURU_MAX_PAGES_PER_SEARCH || 5));
 const AUTO_TIMEOUT_MS = Math.max(10, Number(process.env.PG_AUTO_TIMEOUT_SECONDS || 120)) * 1000;
 const MANUAL_TIMEOUT_MS = Math.max(30, Number(process.env.PG_MANUAL_TIMEOUT_SECONDS || 900)) * 1000;
 const CHECK_INTERVAL_MS = 2500;
-const PAGE_COOLDOWN_MS = Math.max(0, Number(process.env.PG_PAGE_COOLDOWN_MS || 12000));
-const CHALLENGE_COOLDOWN_MS = Math.max(0, Number(process.env.PG_CHALLENGE_COOLDOWN_MS || 45000));
+const PAGE_COOLDOWN_MS = Math.max(0, Number(process.env.PG_PAGE_COOLDOWN_MS || 8000));
+const CHALLENGE_COOLDOWN_MS = Math.max(0, Number(process.env.PG_CHALLENGE_COOLDOWN_MS || 15000));
 
 const PROPERTYGURU_SEARCH_AREAS = [
   'Jurong West',
