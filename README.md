@@ -19,9 +19,45 @@ Vercel works well for the public site as a static snapshot. The deployed app use
 npm run build:static
 ```
 
-This is the build command configured in `vercel.json`, so Vercel can deploy the repo directly. Live PropertyGuru scraping still runs only on the local Mac because it depends on Safari and AppleScript; after refreshing data locally, commit the updated `data/listing.json` and redeploy.
+This is the build command configured in `vercel.json`, so Vercel can deploy the repo directly. Vercel is intentionally used as the public static snapshot host: it reads the committed `data/listing.json` file at build time. PropertyGuru scraping runs from a trusted local updater machine, then commits and pushes the refreshed JSON so GitHub triggers a new Vercel deployment.
 
 ## One-click PropertyGuru Update
+
+### Windows one-click updater
+
+On Windows, double-click:
+
+```text
+windows-updater/Update-Rental-OneClick.bat
+```
+
+The Windows updater is the recommended all-in-one refresh flow for non-technical users. It automatically:
+
+1. checks `node`, `npm`, and `git`
+2. syncs `main` from GitHub
+3. installs dependencies with `npm ci`
+4. installs Playwright Chromium
+5. opens PropertyGuru in a real visible Chrome / Edge / Chromium profile
+6. waits for automatic verification and tries common verification clicks
+7. falls back to manual browser verification if required
+8. saves reusable PropertyGuru browser state
+9. builds and starts a local production Next server
+10. scrapes PropertyGuru
+11. validates `data/listing.json`
+12. runs lint and static build checks
+13. commits only `data/listing.json`
+14. pushes to GitHub so Vercel redeploys automatically
+
+The first run may need the user to complete PropertyGuru / Cloudflare verification in the opened browser window. The script keeps polling and continues automatically once a real PropertyGuru listing or search page is visible. Later runs reuse:
+
+```text
+data/propertyguru-profile/
+data/propertyguru-storage-state.json
+```
+
+Detailed Windows configuration is in [`windows-updater/README.md`](windows-updater/README.md).
+
+### macOS one-click updater
 
 On macOS, double-click:
 

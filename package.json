@@ -10,7 +10,9 @@
     "lint": "eslint",
     "propertyguru:session": "node scripts/propertyguru-session.mjs",
     "propertyguru:check-session": "node scripts/propertyguru-check-session.mjs",
-    "propertyguru:bypass": "node scripts/propertyguru-auto-bypass.mjs"
+    "propertyguru:bypass": "node scripts/propertyguru-auto-bypass.mjs",
+    "propertyguru:windows-session": "node windows-updater/propertyguru-session-windows.mjs",
+    "windows:update": "node windows-updater/update-oneclick.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
