@@ -279,6 +279,16 @@ async function scrape(port) {
   return finalEvent;
 }
 
+
+async function restoreGeneratedPackageLockIfOnlyDirtyFile() {
+  const status = (await run('git', ['status', '--porcelain'], { capture: true })).stdout.trim();
+  const lines = status ? status.split(/\r?\n/).filter(Boolean) : [];
+  if (lines.length === 1 && /package-lock\.json$/.test(lines[0])) {
+    await run('git', ['restore', '--', 'package-lock.json'], { capture: true });
+    log('Restored generated package-lock.json change from previous local npm install.');
+  }
+}
+
 async function ensureCleanEnoughTree() {
   const status = (await run('git', ['status', '--porcelain'], { capture: true })).stdout.trim();
   if (!status) return;
@@ -321,6 +331,7 @@ async function main() {
     if (!(await commandExists(command))) fail(`Missing command: ${command}. Please install it first.`);
   }
 
+  await restoreGeneratedPackageLockIfOnlyDirtyFile();
   await ensureCleanEnoughTree();
 
   log('Syncing latest main from GitHub...');
@@ -331,7 +342,7 @@ async function main() {
 
   log('Installing npm dependencies...');
   const installArgs = process.platform === 'win32'
-    ? ['install', '--no-audit', '--no-fund']
+    ? ['install', '--no-audit', '--no-fund', '--package-lock=false']
     : ['ci'];
   await run('npm', installArgs);
 
@@ -357,36 +368,49 @@ async function main() {
   env = await detectProxyEnv(env);
   log(`Proxy: ${env.SCRAPER_PROXY || env.HTTPS_PROXY || env.HTTP_PROXY || 'none'}`);
 
-  log('Preparing PropertyGuru browser session. Automatic first, manual fallback if needed...');
-  await run('node', [path.join('windows-updater', 'propertyguru-session-windows.mjs'), '--auto-timeout', process.env.PG_AUTO_TIMEOUT_SECONDS || '120', '--manual-timeout', process.env.PG_MANUAL_TIMEOUT_SECONDS || '900'], { env });
-
   if (fs.existsSync(DATA_FILE)) {
     fs.copyFileSync(DATA_FILE, BACKUP_FILE);
     log(`Backed up existing data/listing.json to ${BACKUP_FILE}.`);
   }
 
-  const port = await findFreePort(DEFAULT_PORT);
-  env.PORT = String(port);
+  if (process.platform === 'win32') {
+    try {
+      log('Scraping PropertyGuru directly in the same verified Windows browser context...');
+      await run('node', [path.join('windows-updater', 'propertyguru-browser-scrape-windows.mjs')], { env });
 
-  log('Building local production server...');
-  await run('npm', ['run', 'build'], { env });
+      log('Validating data/listing.json...');
+      validateListingJson();
+    } catch (error) {
+      restoreBackup();
+      throw error;
+    }
+  } else {
+    log('Preparing PropertyGuru browser session. Automatic first, manual fallback if needed...');
+    await run('node', [path.join('windows-updater', 'propertyguru-session-windows.mjs'), '--auto-timeout', process.env.PG_AUTO_TIMEOUT_SECONDS || '120', '--manual-timeout', process.env.PG_MANUAL_TIMEOUT_SECONDS || '900'], { env });
 
-  log(`Starting local production server on port ${port}...`);
-  startServer(port, env);
-  await waitForServer(`http://127.0.0.1:${port}/api/listings?sortBy=newest`);
-  log('Local server is ready.');
+    const port = await findFreePort(DEFAULT_PORT);
+    env.PORT = String(port);
 
-  try {
-    log('Scraping PropertyGuru...');
-    await scrape(port);
+    log('Building local production server...');
+    await run('npm', ['run', 'build'], { env });
 
-    log('Validating data/listing.json...');
-    validateListingJson();
-  } catch (error) {
-    restoreBackup();
-    throw error;
-  } finally {
-    await stopServer();
+    log(`Starting local production server on port ${port}...`);
+    startServer(port, env);
+    await waitForServer(`http://127.0.0.1:${port}/api/listings?sortBy=newest`);
+    log('Local server is ready.');
+
+    try {
+      log('Scraping PropertyGuru...');
+      await scrape(port);
+
+      log('Validating data/listing.json...');
+      validateListingJson();
+    } catch (error) {
+      restoreBackup();
+      throw error;
+    } finally {
+      await stopServer();
+    }
   }
 
   log('Running final checks...');
