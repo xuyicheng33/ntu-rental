@@ -415,7 +415,11 @@ async function main() {
 
   log('Running final checks...');
   await run('npm', ['run', 'lint'], { env });
-  await run('npm', ['run', 'build:static'], { env: { ...env, NEXT_PUBLIC_STATIC_SITE: 'true' } });
+  if (process.platform === 'win32') {
+    await run('npx', ['next', 'build'], { env: { ...env, NEXT_PUBLIC_STATIC_SITE: 'true' } });
+  } else {
+    await run('npm', ['run', 'build:static'], { env: { ...env, NEXT_PUBLIC_STATIC_SITE: 'true' } });
+  }
 
   if (!(await gitHasDataChanges())) {
     log('No data changes to commit. Production data is already up to date.');
